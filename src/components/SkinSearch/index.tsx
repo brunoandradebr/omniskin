@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react'
 
-import { useOmniskin } from '../../stores/omniskin'
+import { useOmniskin } from 'stores/omniskin'
 
 import { Container } from './style'
 
