@@ -1,4 +1,4 @@
-import { ISkin } from '../../services/types/api'
+import { ISkin } from 'services/types/api'
 
 import { Container } from './style'
 

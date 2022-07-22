@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { useOmniskin } from '../../stores/omniskin'
+import { useOmniskin } from 'stores/omniskin'
 
-import { Card } from '../Card'
+import { Card } from 'components/Card'
 
 import { Container } from './style'
 
