@@ -1,4 +1,4 @@
-# [OmniSkins](https://brunoandradebr.github.io/omniskin/)
+# [OmniSkin](https://brunoandradebr.github.io/omniskin/)
 
 Cs go skin markets grouped on one page.
 Markets so far:
