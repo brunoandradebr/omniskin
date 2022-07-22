@@ -79,11 +79,14 @@ export interface IDmarketSkin {
    type: string
 }
 
+export type TSort = 'price' | 'float'
+export type TOrder = 'asc' | 'desc'
+
 export interface IApiParams {
    name?: string
    limit?: number
-   sort?: 'price' | 'float'
-   order?: 'desc' | 'asc'
+   sort?: TSort
+   order?: TOrder
 }
 
 export interface ISkin {

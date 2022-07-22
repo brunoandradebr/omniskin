@@ -2,7 +2,15 @@ import { quotation } from './quotation'
 import { csmoney } from './csmoney'
 import { dmarket } from './dmarket'
 
-import { IApiParams, TSkins, ICsmoneySkin, IDmarketSkin } from './types/api'
+import {
+   IApiParams,
+   TSkins,
+   ISkin,
+   ICsmoneySkin,
+   IDmarketSkin,
+   TSort,
+   TOrder,
+} from './types/api'
 
 let dolar = 0
 
@@ -22,6 +30,15 @@ export const api = {
          style: 'currency',
          currency: 'BRL',
       })
+   },
+
+   sortSkins: (skins: TSkins, field: TSort, order: TOrder) => {
+      // prettier-ignore
+      return skins.sort((a: ISkin, b: ISkin) =>
+         order === 'desc'
+            ? b[field] - a[field]
+            : a[field] - b[field]
+      )
    },
 
    get: async (searchParams?: IApiParams) => {
@@ -91,15 +108,15 @@ export const api = {
          image: item.image,
       }))
 
-      const sortField = params['sort']
+      const allSkins: TSkins = [...csmoneySkins, ...dmarketSkins]
 
-      const filtered = [...csmoneySkins, ...dmarketSkins].sort((a, b) =>
-         params.order === 'desc'
-            ? b[sortField] - a[sortField]
-            : a[sortField] - b[sortField]
+      const sorted = api.sortSkins(
+         allSkins,
+         params.sort ?? 'price',
+         params.order ?? 'desc'
       )
 
-      return filtered
+      return sorted
    },
 }
 
