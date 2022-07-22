@@ -1,5 +1,4 @@
 import ReactDOM from 'react-dom/client'
-import './global.css'
 import App from './App'
 
 const container = document.getElementById('root') as HTMLElement
