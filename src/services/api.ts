@@ -15,6 +15,8 @@ import {
 let dolar = 0
 
 export const api = {
+   initialized: false,
+
    init: async () => {
       const {
          data: {
@@ -22,6 +24,7 @@ export const api = {
          },
       } = await quotation.get('last/USD-BRL')
       dolar = Number(dolarPrice)
+      api.initialized = true
    },
 
    formatCurrency: (price: number) => {
@@ -42,6 +45,11 @@ export const api = {
    },
 
    get: async (searchParams?: IApiParams) => {
+      if (api.initialized === false) {
+         await api.init()
+         console.log('aqui')
+      }
+
       const defaultParams: IApiParams = {
          name: '',
          limit: 60,
@@ -119,5 +127,3 @@ export const api = {
       return sorted
    },
 }
-
-await api.init()
