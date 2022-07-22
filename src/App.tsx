@@ -7,7 +7,7 @@ import './app.css'
 
 function App() {
    const [debounce, setDebounce] = React.useState<number>()
-   const [filterName, setFilterName] = React.useState('')
+   const [filterName, setFilterName] = React.useState('talon')
    const [skinList, setSkinList] = React.useState<TSkins>([])
 
    React.useEffect(() => {

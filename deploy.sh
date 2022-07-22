@@ -17,3 +17,5 @@ git commit -m 'deploy'
 git push -f git@github.com:brunoandradebr/omniskin.git main:page
 
 cd -
+
+rm -fr dist
