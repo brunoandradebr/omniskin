@@ -18,4 +18,5 @@ Project created to practice typescript.
   * React
   * Typescript
   * Zustand
+  * Axios
   * Styled-components
