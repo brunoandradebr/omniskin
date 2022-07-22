@@ -47,7 +47,6 @@ export const api = {
    get: async (searchParams?: IApiParams) => {
       if (api.initialized === false) {
          await api.init()
-         console.log('aqui')
       }
 
       const defaultParams: IApiParams = {
