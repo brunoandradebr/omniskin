@@ -6,13 +6,17 @@ export const Container = styled.div`
    }
 
    .sort-button {
+      cursor: pointer;
       display: flex;
       overflow: hidden;
       background-color: rgba(0, 0, 0, 0.3);
       padding: 5px;
       border-radius: 10px;
       border: 2px solid rgba(0, 0, 0, 0.3);
-      cursor: pointer;
+      transition: all 0.3s;
+   }
+   .sort-button:hover {
+      border-color: royalblue;
    }
 
    .sort-fieldIcon {

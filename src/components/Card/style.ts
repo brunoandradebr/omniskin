@@ -12,7 +12,7 @@ export const Container = styled.a`
       padding: 20px;
       padding-top: 0;
       border-radius: 5px;
-      border: 1px solid #111;
+      border: 1px solid rgba(0, 0, 0, 0.3);
       box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
       transition: all 0.3s;
    }
@@ -30,7 +30,7 @@ export const Container = styled.a`
    &:hover {
       border: 1px solid #333;
       box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
-      background-color: #333;
+      background-color: rgba(74, 74, 74, 0.39);
       transform: translateY(-5px);
    }
 
@@ -62,7 +62,7 @@ export const Container = styled.a`
       justify-content: center;
       width: 48px;
       padding: 10px;
-      background-color: #0e0e0e;
+      background-color: rgba(0, 0, 0, 0.5);
       border-radius: inherit;
    }
 
@@ -81,7 +81,7 @@ export const Container = styled.a`
    .skin-quality,
    .skin-pattern,
    .skin-price {
-      border-bottom: 1px solid #111;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
       border-bottom-left-radius: 14px;
    }
 
@@ -92,6 +92,6 @@ export const Container = styled.a`
       width: 80px;
       padding: 3px 14px;
       border-radius: inherit;
-      background-color: #000;
+      background-color: rgba(0, 0, 0, 0.8);
    }
 `
