@@ -31,11 +31,19 @@ export const Card = ({ skin }: IProps) => {
                <div className='skin-description'>
                   <div className='skin-name'>{skin.name}</div>
                   <div className='skin-quality'>
-                     <span>float</span> <b>{skin.quality}</b> /{' '}
-                     {Number(skin.float).toFixed(4)}
+                     <span>float</span>
+                     {skin.quality ? (
+                        <>
+                           <b> {skin.quality}</b> /{' '}
+                           {Number(skin.float).toFixed(4)}
+                        </>
+                     ) : (
+                        <> --- </>
+                     )}
                   </div>
                   <div className='skin-pattern'>
-                     <span>pattern</span> {skin.pattern}
+                     <span>pattern</span>{' '}
+                     {skin.pattern ? skin.pattern : ' --- '}
                   </div>
                   <div className='skin-price'>
                      <span>price</span> {skin.priceFormated}

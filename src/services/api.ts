@@ -79,7 +79,7 @@ export const api = {
          price: item.price,
          priceFormated: api.formatCurrency(item.price * dolar),
          pattern: item.pattern,
-         quality: item.quality,
+         quality: item.quality && item.quality.toUpperCase(),
          image: item.steamImg,
       }))
 
@@ -111,11 +111,13 @@ export const api = {
                     .map((word) => word[0])
                     .join()
                     .replace(',', '')
+                    .toUpperCase()
                : item.extra.exterior
                     .split(' ')
                     .map((word) => word[0])
                     .join()
-                    .replace(',', ''),
+                    .replace(',', '')
+                    .toUpperCase(),
          image: item.image,
       }))
 
@@ -148,16 +150,20 @@ export const api = {
             pattern: item.paintSeed,
             quality:
                item.wearName && item.wearName.includes('-')
-                  ? item.wearName
+                  ? item.wearName &&
+                    item.wearName
                        .split('-')
                        .map((word) => word[0])
                        .join()
                        .replace(',', '')
-                  : item.wearName
+                       .toUpperCase()
+                  : item.wearName &&
+                    item.wearName
                        .split(' ')
                        .map((word) => word[0])
                        .join()
-                       .replace(',', ''),
+                       .replace(',', '')
+                       .toUpperCase(),
             image: item.img,
          })
       )
