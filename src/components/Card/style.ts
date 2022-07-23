@@ -16,6 +16,10 @@ export const Container = styled.div`
       transition: all 0.3s;
    }
 
+   &.--is-loading {
+      height: 435px;
+   }
+
    @media only screen and (max-width: 536px) {
       & {
          width: 320px;

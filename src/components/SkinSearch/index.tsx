@@ -11,14 +11,14 @@ export const SkinSearch = () => {
    const [filterName, setFilterName] = React.useState('talon')
 
    React.useEffect(() => {
-      const loadSkins = () => {
+      const loadSkins = async () => {
          fetchSkins({
             name: filterName,
          })
       }
 
       clearTimeout(debounce)
-      setDebounce(setTimeout(loadSkins, 500))
+      setDebounce(setTimeout(loadSkins, 1000))
    }, [filterName])
 
    const handleChangeFilterName = (event: ChangeEvent<HTMLInputElement>) => {

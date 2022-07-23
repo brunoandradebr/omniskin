@@ -11,7 +11,7 @@ export const SkinList = () => {
    const fetchSkins = useOmniskin((state) => state.fetch)
 
    React.useEffect(() => {
-      ;(() => {
+      ;(async () => {
          fetchSkins({
             name: 'talon',
          })

@@ -6,10 +6,20 @@ import { OminiskinState } from './types'
 
 export const useOmniskin = create<OminiskinState>((set) => ({
    skins: [],
+   isFetching: true,
    fetch: async (params) => {
+      set(() => ({ isFetching: true }))
+
       const skins = await api.get(params)
-      set((state) => ({
+
+      set(() => ({
          skins: [...skins],
       }))
+
+      setTimeout(() => {
+         set(() => ({
+            isFetching: false,
+         }))
+      }, 400)
    },
 }))
