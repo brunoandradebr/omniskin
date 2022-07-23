@@ -14,12 +14,7 @@ export const useOmniskin = create<OminiskinState>((set) => ({
 
       set(() => ({
          skins: [...skins],
+         isFetching: false,
       }))
-
-      setTimeout(() => {
-         set(() => ({
-            isFetching: false,
-         }))
-      }, 400)
    },
 }))

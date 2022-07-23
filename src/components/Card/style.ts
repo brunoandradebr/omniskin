@@ -39,6 +39,7 @@ export const Container = styled.div`
       align-items: center;
       justify-content: center;
       width: inherit;
+      height: 200px;
       border-radius: inherit;
       border-bottom-left-radius: 20px;
       margin-bottom: 20px;
