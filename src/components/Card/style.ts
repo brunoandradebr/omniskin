@@ -89,7 +89,7 @@ export const Container = styled.a`
    .skin-pattern span,
    .skin-price span {
       display: inline-block;
-      min-width: 80px;
+      width: 80px;
       padding: 3px 14px;
       border-radius: inherit;
       background-color: #000;
