@@ -95,6 +95,7 @@ export interface ISkin {
       name: string
       url: string
       icon: string
+      skinUrl?: string
    }
    name: string
    image: string

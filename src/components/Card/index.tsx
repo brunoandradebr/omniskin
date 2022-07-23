@@ -12,7 +12,11 @@ export const Card = ({ skin }: IProps) => {
    const isFetching = useOmniskin((state) => state.isFetching)
 
    return (
-      <Container className={`${isFetching ? '--is-loading' : ''}`}>
+      <Container
+         className={`${isFetching ? '--is-loading' : ''}`}
+         href={skin.store.skinUrl}
+         target='_blank'
+      >
          {isFetching === false ? (
             <>
                <div className='skin-imageContainer'>

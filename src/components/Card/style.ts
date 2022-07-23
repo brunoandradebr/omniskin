@@ -1,12 +1,13 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+export const Container = styled.a`
    & {
-      cursor: default;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
       width: 240px;
       padding: 20px;
       padding-top: 0;
