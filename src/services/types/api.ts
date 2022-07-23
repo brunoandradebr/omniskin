@@ -79,6 +79,48 @@ export interface IDmarketSkin {
    type: string
 }
 
+export interface INeshastoreSkin {
+   bot: {
+      steamId: string
+   }
+   category: number
+   exterior: string
+   float: string
+   id: number
+   img: string
+   imgLarge: string
+   inspectLink: string
+   itemNameBr: string
+   marketHashName: string
+   name: string
+   oldPrice: string
+   originName: string
+   paintSeed: number
+   phase: {
+      id: number
+      paintIndex: number
+      phase: string
+      phaseFull: string
+      phasePt: string
+   }
+   price: string
+   qualityName: string
+   qualityNameBr: string
+   rarity: number
+   rarityName: string
+   rarityNameBr: string
+   slug: string
+   slugType: string
+   status: number
+   stickers: []
+   tags: []
+   tradelockExpiration: string
+   type: number
+   weaponType: string
+   weaponTypeBr: string
+   wearName: string
+}
+
 export type TSort = 'price' | 'float'
 export type TOrder = 'asc' | 'desc'
 

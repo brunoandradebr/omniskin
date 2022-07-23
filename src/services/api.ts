@@ -1,6 +1,7 @@
 import { quotation } from './quotation'
 import { csmoney } from './csmoney'
 import { dmarket } from './dmarket'
+import { neshastore } from './neshastore'
 
 import {
    IApiParams,
@@ -8,6 +9,7 @@ import {
    ISkin,
    ICsmoneySkin,
    IDmarketSkin,
+   INeshastoreSkin,
    TSort,
    TOrder,
 } from './types/api'
@@ -83,7 +85,7 @@ export const api = {
 
       // dmarket skins
       const { data: dmarketResponse } = await dmarket.get(
-         `items?side=market&title=${params.name}&priceFrom=0&priceTo=0&gameId=a8db&types=dmarket&cursor&platform=browser&isLoggedIn=false&orderDir=${params?.order}&orderBy=${params?.sort}&limit=${params?.limit}&currency=USD&treeFilters=exterior[]=factory new,exterior[]=minimal wear,exterior[]=field-tested,exterior[]=well-worn,exterior[]=battle-scarred`
+         `?side=market&title=${params.name}&priceFrom=0&priceTo=0&gameId=a8db&types=dmarket&cursor&platform=browser&isLoggedIn=false&orderDir=${params?.order}&orderBy=${params?.sort}&limit=${params?.limit}&currency=USD&treeFilters=exterior[]=factory new,exterior[]=minimal wear,exterior[]=field-tested,exterior[]=well-worn,exterior[]=battle-scarred`
       )
       const { cursor, objects: dmarketItems } = dmarketResponse
 
@@ -117,7 +119,54 @@ export const api = {
          image: item.image,
       }))
 
-      const allSkins: TSkins = [...csmoneySkins, ...dmarketSkins]
+      // neshastore skins
+      let sortOrder = 1
+      if (params.sort === 'price' && params.order === 'asc') sortOrder = 1
+      if (params.sort === 'price' && params.order === 'desc') sortOrder = 2
+      if (params.sort === 'float' && params.order === 'asc') sortOrder = 3
+      // neshastore do not sort items by greater float, so, repeat order by lower price
+      if (params.sort === 'float' && params.order === 'desc') sortOrder = 1
+
+      const { data: neshastoreResponse } = await neshastore.get(
+         `?query=${params.name}&orderBy[]=${sortOrder}&limit=60`
+      )
+      const { items: neshastoreItems } = neshastoreResponse
+
+      const neshastoreSkins: TSkins = neshastoreItems.map(
+         (item: INeshastoreSkin) => ({
+            id: String(item.id),
+            store: {
+               name: 'neshastore',
+               url: 'https://neshastore.com/',
+               icon: 'https://pbs.twimg.com/profile_images/1549726131187851265/Amzwqptd_400x400.jpg',
+               skinUrl: `https://neshastore.com/csgo/${item.category}/${item.slugType}/${item.slug}?itemId=${item.id}`,
+            },
+            name: item.marketHashName,
+            float: item.float,
+            price: item.price,
+            priceFormated: api.formatCurrency(Number(item.price)),
+            pattern: item.paintSeed,
+            quality:
+               item.wearName && item.wearName.includes('-')
+                  ? item.wearName
+                       .split('-')
+                       .map((word) => word[0])
+                       .join()
+                       .replace(',', '')
+                  : item.wearName
+                       .split(' ')
+                       .map((word) => word[0])
+                       .join()
+                       .replace(',', ''),
+            image: item.img,
+         })
+      )
+
+      const allSkins: TSkins = [
+         ...csmoneySkins,
+         ...dmarketSkins,
+         ...neshastoreSkins,
+      ]
 
       const sorted = api.sortSkins(
          allSkins,
