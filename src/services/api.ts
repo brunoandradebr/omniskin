@@ -145,7 +145,7 @@ export const api = {
             },
             name: item.marketHashName,
             float: item.float,
-            price: item.price,
+            price: Number(item.price) / dolar,
             priceFormated: api.formatCurrency(Number(item.price)),
             pattern: item.paintSeed,
             quality:
