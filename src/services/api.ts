@@ -127,7 +127,7 @@ export const api = {
       if (params.sort === 'price' && params.order === 'desc') neshaSortOrder = 2
       if (params.sort === 'float' && params.order === 'asc') neshaSortOrder = 3
       // neshastore do not sort items by greater float, so, repeat order by lower price
-      if (params.sort === 'float' && params.order === 'desc') neshaSortOrder = 1
+      if (params.sort === 'price' && params.order === 'asc') neshaSortOrder = 1
 
       const { data: neshastoreResponse } = await neshastore.get(
          `?query=${params.name}&orderBy[]=${neshaSortOrder}&limit=60`
