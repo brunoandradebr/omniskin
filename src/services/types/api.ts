@@ -121,6 +121,45 @@ export interface INeshastoreSkin {
    wearName: string
 }
 
+export interface IDashSkin {
+   appID: number
+   assetid: string
+   availableAt: string
+   classid: string
+   createdAt: string
+   discount: number
+   exterior: string
+   fee: string
+   icon_url: string
+   instanceid: string
+   instant: boolean
+   item_type: string
+   listed: boolean
+   market_hash_name: string
+   name: string
+   price: number
+   quality: string
+   rarity: string
+   steamPrice: number
+   stickers: []
+   tradedAt: string
+   type: string
+   updatedAt: string
+   user: string
+   wear_data: {
+      defindex: number
+      floatvalue: number
+      image: string
+      paintindex: number
+      paintseed: number
+      quality: number
+      rarity: number
+      stickers: []
+   }
+   __v: number
+   _id: string
+}
+
 export type TSort = 'price' | 'float'
 export type TOrder = 'asc' | 'desc'
 

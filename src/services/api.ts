@@ -2,6 +2,7 @@ import { quotation } from './quotation'
 import { csmoney } from './csmoney'
 import { dmarket } from './dmarket'
 import { neshastore } from './neshastore'
+import { dash } from './dash'
 
 import {
    IApiParams,
@@ -10,6 +11,7 @@ import {
    ICsmoneySkin,
    IDmarketSkin,
    INeshastoreSkin,
+   IDashSkin,
    TSort,
    TOrder,
 } from './types/api'
@@ -121,6 +123,43 @@ export const api = {
          image: item.image,
       }))
 
+      // dash skins
+      const { data: dashResponse } = await dash.get(
+         `?search=${params.name}&sort_by=${params.sort}&sort_dir=${params.order}&limit=60&page=1`
+      )
+      const { results: dashItems } = dashResponse
+
+      const dashSkins: TSkins = dashItems.map((item: IDashSkin) => ({
+         id: item._id,
+         store: {
+            name: 'dashskins',
+            url: 'https://dashskins.com.br/',
+            icon: 'https://pbs.twimg.com/profile_images/1527417120375590947/wCY62vQ8_400x400.jpg',
+            skinUrl: `https://dashskins.com.br/item/1/${item._id}`,
+         },
+         name: item.market_hash_name,
+         float: item.wear_data.floatvalue,
+         price: item.price / dolar,
+         priceFormated: api.formatCurrency(item.price),
+         pattern: item.wear_data.paintseed,
+         quality: item.market_hash_name.includes('-')
+            ? item.market_hash_name
+                 .match(/\((.*?)\)/)
+                 ?.pop()
+                 ?.split('-')
+                 .map((word) => word[0])
+                 .join(',')
+                 .replace(',', '')
+            : item.market_hash_name
+                 .match(/\((.*?)\)/)
+                 ?.pop()
+                 ?.split(' ')
+                 .map((word) => word[0])
+                 .join(',')
+                 .replace(',', ''),
+         image: `https://steamcommunity-a.akamaihd.net/economy/image/${item.icon_url}`,
+      }))
+
       // neshastore skins
       let neshaSortOrder = 1
       if (params.sort === 'price' && params.order === 'asc') neshaSortOrder = 1
@@ -172,6 +211,7 @@ export const api = {
          ...csmoneySkins,
          ...dmarketSkins,
          ...neshastoreSkins,
+         ...dashSkins,
       ]
 
       const sorted = api.sortSkins(
