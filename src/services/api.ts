@@ -58,6 +58,7 @@ export const api = {
          limit: 60,
          order: 'desc',
          sort: 'price',
+         stores: [],
       }
 
       const params: IApiParams = { ...defaultParams, ...searchParams }
@@ -134,7 +135,7 @@ export const api = {
          store: {
             name: 'dashskins',
             url: 'https://dashskins.com.br/',
-            icon: 'https://pbs.twimg.com/profile_images/1527417120375590947/wCY62vQ8_400x400.jpg',
+            icon: 'https://raichu-uploads.s3.amazonaws.com/logo_dash-skins_mxE7PD.png',
             skinUrl: `https://dashskins.com.br/item/1/${item._id}`,
          },
          name: item.market_hash_name,
@@ -179,7 +180,7 @@ export const api = {
             store: {
                name: 'neshastore',
                url: 'https://neshastore.com/',
-               icon: 'https://pbs.twimg.com/profile_images/1549726131187851265/Amzwqptd_400x400.jpg',
+               icon: 'https://i.ibb.co/MM51ZSZ/Logo-Nesha-sem-fundo.png',
                skinUrl: `https://neshastore.com/csgo/${item.category}/${item.slugType}/${item.slug}?itemId=${item.id}`,
             },
             name: item.marketHashName,
@@ -207,12 +208,22 @@ export const api = {
          })
       )
 
-      const allSkins: TSkins = [
-         ...csmoneySkins,
-         ...dmarketSkins,
-         ...neshastoreSkins,
-         ...dashSkins,
-      ]
+      let allSkins: TSkins = []
+
+      if (params.stores && params.stores.length) {
+         params.stores?.includes('csmoney') && allSkins.push(...csmoneySkins)
+         params.stores?.includes('dmarket') && allSkins.push(...dmarketSkins)
+         params.stores?.includes('neshastore') &&
+            allSkins.push(...neshastoreSkins)
+         params.stores?.includes('dash') && allSkins.push(...dashSkins)
+      } else {
+         allSkins = [
+            ...csmoneySkins,
+            ...dmarketSkins,
+            ...neshastoreSkins,
+            ...dashSkins,
+         ]
+      }
 
       const sorted = api.sortSkins(
          allSkins,

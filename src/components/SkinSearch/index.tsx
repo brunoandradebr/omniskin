@@ -2,6 +2,7 @@ import React, { ChangeEvent } from 'react'
 
 import { useOmniskin } from 'stores/omniskin'
 
+import { StoreFilter } from './StoreFilter'
 import { SortButton } from './SortButton'
 import { ISortButton } from './SortButton/types'
 
@@ -16,6 +17,7 @@ export const SkinSearch = () => {
       sort: 'price',
       order: 'asc',
    })
+   const [filterStores, setFilterStores] = React.useState<string[] | null>([])
 
    React.useEffect(() => {
       const loadSkins = async () => {
@@ -23,12 +25,13 @@ export const SkinSearch = () => {
             name: filterName,
             sort: filterSort?.sort,
             order: filterSort?.order,
+            stores: filterStores,
          })
       }
 
       clearTimeout(debounce)
       setDebounce(setTimeout(loadSkins, 1000))
-   }, [filterName, filterSort])
+   }, [filterName, filterSort, filterStores])
 
    const handleChangeFilterName = (event: ChangeEvent<HTMLInputElement>) => {
       setFilterName(event.target.value)
@@ -36,6 +39,10 @@ export const SkinSearch = () => {
 
    const handleFilterSort = (sort: ISortButton) => {
       setFilterSort(sort)
+   }
+
+   const handleFilterStores = (stores: string[] | null) => {
+      setFilterStores(stores)
    }
 
    return (
@@ -46,6 +53,7 @@ export const SkinSearch = () => {
             onChange={handleChangeFilterName}
          />
          <SortButton onClick={handleFilterSort} />
+         <StoreFilter onChange={handleFilterStores} />
       </Container>
    )
 }

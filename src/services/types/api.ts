@@ -168,6 +168,7 @@ export interface IApiParams {
    limit?: number
    sort?: TSort
    order?: TOrder
+   stores?: string[] | null
 }
 
 export interface ISkin {
