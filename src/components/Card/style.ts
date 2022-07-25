@@ -70,6 +70,7 @@ export const Container = styled.a`
       display: flex;
       flex-direction: column;
       gap: 5px;
+      width: 100%;
    }
 
    .skin-name {
