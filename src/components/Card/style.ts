@@ -22,6 +22,12 @@ export const Container = styled.a`
    }
 
    @media only screen and (max-width: 536px) {
+      &.--is-loading {
+         height: 202px;
+      }
+   }
+
+   @media only screen and (max-width: 536px) {
       & {
          flex-direction: row;
          gap: 10px;
