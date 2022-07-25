@@ -23,7 +23,11 @@ export const Container = styled.a`
 
    @media only screen and (max-width: 536px) {
       & {
+         flex-direction: row;
+         gap: 10px;
          width: 320px;
+         padding: 0px;
+         padding-right: 10px;
       }
    }
 
@@ -48,9 +52,25 @@ export const Container = styled.a`
       transition: all 0.3s;
    }
 
+   @media only screen and (max-width: 536px) {
+      .skin-imageContainer {
+         margin: 0;
+         border-radius: inherit;
+         border-top-right-radius: 0;
+         border-bottom-right-radius: 0;
+      }
+   }
+
    .skin-imageContainer .skin-image {
       width: inherit;
       padding: 40px;
+   }
+
+   @media only screen and (max-width: 536px) {
+      .skin-imageContainer .skin-image {
+         width: 100px;
+         padding: 0px;
+      }
    }
 
    .skin-imageContainer .skin-store {
@@ -64,6 +84,7 @@ export const Container = styled.a`
       padding: 10px;
       background-color: rgba(0, 0, 0, 0.5);
       border-radius: inherit;
+      border-bottom-left-radius: 20px;
    }
 
    .skin-description {
@@ -82,6 +103,9 @@ export const Container = styled.a`
    .skin-quality,
    .skin-pattern,
    .skin-price {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.3);
       border-bottom-left-radius: 14px;
    }
@@ -94,5 +118,20 @@ export const Container = styled.a`
       padding: 3px 14px;
       border-radius: inherit;
       background-color: rgba(0, 0, 0, 0.8);
+   }
+
+   .skin-quality b,
+   .skin-pattern b,
+   .skin-price b {
+      position: relative;
+      margin-right: 5px;
+   }
+
+   .skin-quality b::after,
+   .skin-pattern b::after,
+   .skin-price b::after {
+      position: absolute;
+      content: '/';
+      right: -10px;
    }
 `

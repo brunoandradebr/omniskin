@@ -34,7 +34,8 @@ export const Card = ({ skin }: IProps) => {
                      <span title={String(skin.float)}>float</span>
                      {skin.quality && skin.float >= 0 ? (
                         <>
-                           <b> {skin.quality}</b> /{' '}
+                           <b> {skin.quality}</b>
+                           {''}
                            {String(skin.float).substring(0, 8)}
                         </>
                      ) : (
