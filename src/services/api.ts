@@ -130,36 +130,43 @@ export const api = {
       )
       const { results: dashItems } = dashResponse
 
-      const dashSkins: TSkins = dashItems.map((item: IDashSkin) => ({
-         id: item._id,
-         store: {
-            name: 'dashskins',
-            url: 'https://dashskins.com.br/',
-            icon: 'https://raichu-uploads.s3.amazonaws.com/logo_dash-skins_mxE7PD.png',
-            skinUrl: `https://dashskins.com.br/item/1/${item._id}`,
-         },
-         name: item.market_hash_name,
-         float: item.wear_data.floatvalue,
-         price: item.price / dolar,
-         priceFormated: api.formatCurrency(item.price),
-         pattern: item.wear_data.paintseed,
-         quality: item.market_hash_name.includes('-')
-            ? item.market_hash_name
-                 .match(/\((.*?)\)/)
-                 ?.pop()
-                 ?.split('-')
+      const dashSkins: TSkins = dashItems.map((item: IDashSkin) => {
+         const qualityDescription = item.market_hash_name
+            .match(/\((.*?)\)/)
+            ?.pop()
+
+         let skinQuality = qualityDescription?.includes('-')
+            ? qualityDescription
+                 .split('-')
                  .map((word) => word[0])
                  .join(',')
                  .replace(',', '')
-            : item.market_hash_name
-                 .match(/\((.*?)\)/)
-                 ?.pop()
+            : qualityDescription
                  ?.split(' ')
                  .map((word) => word[0])
                  .join(',')
-                 .replace(',', ''),
-         image: `https://steamcommunity-a.akamaihd.net/economy/image/${item.icon_url}`,
-      }))
+                 .replace(',', '')
+
+         if (item.wear_data.paintindex === -1 && item.wear_data.floatvalue >= 0)
+            skinQuality = '★'
+
+         return {
+            id: item._id,
+            store: {
+               name: 'dashskins',
+               url: 'https://dashskins.com.br/',
+               icon: 'https://raichu-uploads.s3.amazonaws.com/logo_dash-skins_mxE7PD.png',
+               skinUrl: `https://dashskins.com.br/item/1/${item._id}`,
+            },
+            name: item.market_hash_name,
+            float: item.wear_data.floatvalue,
+            price: item.price / dolar,
+            priceFormated: api.formatCurrency(item.price),
+            pattern: item.wear_data.paintseed,
+            quality: skinQuality,
+            image: `https://steamcommunity-a.akamaihd.net/economy/image/${item.icon_url}`,
+         }
+      })
 
       // neshastore skins
       let neshaSortOrder = 1

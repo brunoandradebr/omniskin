@@ -31,11 +31,11 @@ export const Card = ({ skin }: IProps) => {
                <div className='skin-description'>
                   <div className='skin-name'>{skin.name}</div>
                   <div className='skin-quality'>
-                     <span>float</span>
-                     {skin.quality ? (
+                     <span title={String(skin.float)}>float</span>
+                     {skin.quality && skin.float >= 0 ? (
                         <>
                            <b> {skin.quality}</b> /{' '}
-                           {Number(skin.float).toFixed(4)}
+                           {String(skin.float).substring(0, 8)}
                         </>
                      ) : (
                         <> --- </>
@@ -43,7 +43,9 @@ export const Card = ({ skin }: IProps) => {
                   </div>
                   <div className='skin-pattern'>
                      <span>pattern</span>{' '}
-                     {skin.pattern ? skin.pattern : ' --- '}
+                     {skin.pattern && skin.pattern >= 0
+                        ? skin.pattern
+                        : ' --- '}
                   </div>
                   <div className='skin-price'>
                      <span>price</span> {skin.priceFormated}
