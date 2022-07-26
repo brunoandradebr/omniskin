@@ -31,7 +31,7 @@ export const Container = styled.a`
       & {
          flex-direction: row;
          gap: 10px;
-         width: 320px;
+         width: 100%;
          padding: 0px;
          padding-right: 10px;
       }
