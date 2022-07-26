@@ -60,10 +60,12 @@ export const Container = styled.a`
 
    @media only screen and (max-width: 536px) {
       .skin-imageContainer {
+         flex: 1;
          margin: 0;
          border-radius: inherit;
          border-top-right-radius: 0;
          border-bottom-right-radius: 0;
+         padding-inline: 5px;
       }
    }
 
@@ -91,6 +93,31 @@ export const Container = styled.a`
       background-color: rgba(0, 0, 0, 0.5);
       border-radius: inherit;
       border-bottom-left-radius: 20px;
+   }
+
+   .skin-imageContainer a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      bottom: 10px;
+      left: 20px;
+      font-size: 1.8rem;
+      padding: 10px;
+      color: inherit;
+      border-radius: 20px;
+      background-color: rgba(0, 0, 0, 0.3);
+      transition: all 0.3s;
+   }
+
+   .skin-imageContainer a:hover {
+      background-color: royalblue;
+   }
+
+   @media only screen and (max-width: 536px) {
+      .skin-imageContainer a {
+         visibility: hidden;
+      }
    }
 
    .skin-description {

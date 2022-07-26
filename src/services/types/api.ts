@@ -136,6 +136,15 @@ export interface IDashSkin {
    item_type: string
    listed: boolean
    market_hash_name: string
+   market_actions: [
+      {
+         link: string
+         name: string
+      }
+   ]
+   bot: {
+      steamID64: string
+   }
    name: string
    price: number
    quality: string
@@ -186,6 +195,7 @@ export interface ISkin {
    pattern: number
    price: number
    priceFormated: string
+   inspect: string
 }
 
 export type TSkins = ISkin[]

@@ -46,6 +46,7 @@ export const StoreFilter = (props: IStoreFilterProps) => {
             {storeList.map((store) => (
                <div
                   key={store.name}
+                  title={store.name}
                   className={`store ${store.name} ${
                      activeStores.includes(store.name) && '--is-active'
                   }`}

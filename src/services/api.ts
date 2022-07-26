@@ -84,6 +84,7 @@ export const api = {
          pattern: item.pattern,
          quality: item.quality && item.quality.toUpperCase(),
          image: item.steamImg,
+         inspect: `steam://rungame/730/76561202255233023/+csgo_econ_action_preview S${item.steamId}A${item.assetId}D${item.inspect}`,
       }))
 
       // dmarket skins
@@ -122,6 +123,7 @@ export const api = {
                     .replace(',', '')
                     .toUpperCase(),
          image: item.image,
+         inspect: item.extra.inspectInGame,
       }))
 
       // dash skins
@@ -165,6 +167,9 @@ export const api = {
             pattern: item.wear_data.paintseed,
             quality: skinQuality,
             image: `https://steamcommunity-a.akamaihd.net/economy/image/${item.icon_url}`,
+            inspect: `steam://rungame/730/76561202255233023/+csgo_econ_action_preview S${
+               item.bot.steamID64
+            }A${item.assetid}D${item.market_actions[0].link.split('D').pop()}`,
          }
       })
 
@@ -212,6 +217,7 @@ export const api = {
                        .replace(',', '')
                        .toUpperCase(),
             image: item.img,
+            inspect: item.inspectLink,
          })
       )
 

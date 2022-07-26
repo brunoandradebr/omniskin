@@ -1,6 +1,7 @@
 import { ISkin } from 'services/types/api'
-
 import { useOmniskin } from 'stores/omniskin'
+
+import { TbEye as InspectIcon } from 'react-icons/tb'
 
 import { Container } from './style'
 
@@ -27,6 +28,9 @@ export const Card = ({ skin }: IProps) => {
                      className='skin-store'
                      src={skin.store.icon}
                   />
+                  <a href={skin.inspect} title='Inspect in game'>
+                     <InspectIcon />
+                  </a>
                </div>
                <div className='skin-description'>
                   <div className='skin-name'>{skin.name}</div>
