@@ -19,6 +19,7 @@ export const useOmniskin = create<OminiskinState>((set) => ({
          name: '',
          url: '',
       },
+      inspect: '',
    })),
    isFetching: true,
    fetch: async (params) => {
