@@ -21,6 +21,27 @@ export const Container = styled.a`
       height: 435px;
    }
 
+   &.FN {
+      box-shadow: inset 0px 0px 0px 1px #3d818f;
+      background-color: #3d818f14;
+   }
+   &.FT {
+      box-shadow: inset 0px 0px 0px 1px #dfc04a;
+      background-color: #dfc04a14;
+   }
+   &.MW {
+      box-shadow: inset 0px 0px 0px 1px #84b235;
+      background-color: #84b23514;
+   }
+   &.WW {
+      box-shadow: inset 0px 0px 0px 1px #ef8641;
+      background-color: #ef864114;
+   }
+   &.BS {
+      box-shadow: inset 0px 0px 0px 1px #eb5757;
+      background-color: #eb575714;
+   }
+
    @media only screen and (max-width: 536px) {
       &.--is-loading {
          height: 202px;
@@ -83,8 +104,8 @@ export const Container = styled.a`
 
    .skin-imageContainer .skin-store {
       position: absolute;
-      top: 0;
-      right: 0px;
+      top: 4px;
+      right: 4px;
       display: flex;
       align-items: center;
       justify-content: center;

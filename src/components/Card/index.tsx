@@ -14,7 +14,9 @@ export const Card = ({ skin }: IProps) => {
 
    return (
       <Container
-         className={`${isFetching ? '--is-loading' : ''}`}
+         className={`${
+            isFetching ? '--is-loading' : skin.quality ? skin.quality : ''
+         }`}
          href={skin.store.skinUrl}
          target='_blank'
       >
