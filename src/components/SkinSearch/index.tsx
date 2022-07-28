@@ -8,14 +8,26 @@ import { ISortButton } from './SortButton/types'
 
 import { Container } from './style'
 
+const randomSkinName = [
+   'butterfly',
+   'bayoneta',
+   'karambit',
+   'talon',
+   'skeleton knife',
+]
+
+const randomIndex = Math.round(Math.random() * (randomSkinName.length - 1))
+
 export const SkinSearch = () => {
    const fetchSkins = useOmniskin((state) => state.fetch)
 
    const [debounce, setDebounce] = React.useState<number>()
-   const [filterName, setFilterName] = React.useState('ak-47')
+   const [filterName, setFilterName] = React.useState(
+      randomSkinName[randomIndex]
+   )
    const [filterSort, setFilterSort] = React.useState<ISortButton>({
       sort: 'price',
-      order: 'asc',
+      order: 'desc',
    })
    const [filterStores, setFilterStores] = React.useState<string[] | null>([])
 

@@ -21,27 +21,6 @@ export const Container = styled.a`
       height: 435px;
    }
 
-   &.FN {
-      box-shadow: inset 0px 0px 0px 1px #3d818f;
-      background-color: #3d818f14;
-   }
-   &.FT {
-      box-shadow: inset 0px 0px 0px 1px #dfc04a;
-      background-color: #dfc04a14;
-   }
-   &.MW {
-      box-shadow: inset 0px 0px 0px 1px #84b235;
-      background-color: #84b23514;
-   }
-   &.WW {
-      box-shadow: inset 0px 0px 0px 1px #ef8641;
-      background-color: #ef864114;
-   }
-   &.BS {
-      box-shadow: inset 0px 0px 0px 1px #eb5757;
-      background-color: #eb575714;
-   }
-
    @media only screen and (max-width: 536px) {
       &.--is-loading {
          height: 202px;
@@ -63,6 +42,7 @@ export const Container = styled.a`
       box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
       background-color: rgba(74, 74, 74, 0.39);
       transform: translateY(-5px);
+      filter: saturate(1.3);
    }
 
    .skin-imageContainer {
@@ -186,6 +166,23 @@ export const Container = styled.a`
    .skin-price b::after {
       position: absolute;
       content: '/';
+      color: #ddd;
       right: -10px;
+   }
+
+   .FN {
+      color: #4169e1;
+   }
+   .FT {
+      color: #dfc04a;
+   }
+   .MW {
+      color: #84b235;
+   }
+   .WW {
+      color: #ef8641;
+   }
+   .BS {
+      color: #eb5757;
    }
 `

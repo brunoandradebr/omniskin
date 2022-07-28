@@ -31,7 +31,7 @@ const sortStates: TSortButtonList = [
 ]
 
 export const SortButton = (props: ISortButtonProps) => {
-   const [currentState, setCurrentState] = React.useState<number>(0)
+   const [currentState, setCurrentState] = React.useState<number>(1)
 
    const handleOnClick = () => {
       const newState = (currentState + 1) % sortStates.length

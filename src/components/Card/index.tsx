@@ -3,6 +3,8 @@ import { useOmniskin } from 'stores/omniskin'
 
 import { TbEye as InspectIcon } from 'react-icons/tb'
 
+import { FloatMeter } from './FloatMeter'
+
 import { Container } from './style'
 
 interface IProps {
@@ -14,15 +16,13 @@ export const Card = ({ skin }: IProps) => {
 
    return (
       <Container
-         className={`${
-            isFetching ? '--is-loading' : skin.quality ? skin.quality : ''
-         }`}
+         className={`${isFetching ? '--is-loading' : ''}`}
          href={skin.store.skinUrl}
          target='_blank'
       >
          {isFetching === false ? (
             <>
-               <div className='skin-imageContainer'>
+               <div className={'skin-imageContainer'}>
                   <img className='skin-image' src={skin.image} />
                   <img
                      title={skin.store.name}
@@ -34,13 +34,17 @@ export const Card = ({ skin }: IProps) => {
                      <InspectIcon />
                   </a>
                </div>
+
                <div className='skin-description'>
                   <div className='skin-name'>{skin.name}</div>
+
+                  <FloatMeter float={skin.float} quality={skin.quality} />
+
                   <div className='skin-quality'>
                      <span title={String(skin.float)}>float</span>
                      {skin.quality && skin.float >= 0 ? (
                         <>
-                           <b> {skin.quality}</b>
+                           <b className={skin.quality}> {skin.quality}</b>
                            {''}
                            {String(skin.float).substring(0, 8)}
                         </>
@@ -48,12 +52,14 @@ export const Card = ({ skin }: IProps) => {
                         <> --- </>
                      )}
                   </div>
+
                   <div className='skin-pattern'>
                      <span>pattern</span>{' '}
                      {skin.pattern && skin.pattern >= 0
                         ? skin.pattern
                         : ' --- '}
                   </div>
+
                   <div className='skin-price'>
                      <span>price</span> {skin.priceFormated}
                   </div>
