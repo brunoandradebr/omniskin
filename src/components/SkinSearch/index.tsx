@@ -14,6 +14,7 @@ const randomSkinName = [
    'karambit',
    'talon',
    'skeleton knife',
+   'cobalt skulls',
 ]
 
 const randomIndex = Math.round(Math.random() * (randomSkinName.length - 1))

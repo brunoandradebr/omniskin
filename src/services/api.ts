@@ -182,7 +182,7 @@ export const api = {
       if (params.sort === 'price' && params.order === 'asc') neshaSortOrder = 1
 
       const { data: neshastoreResponse } = await neshastore.get(
-         `?query=${params.name}&orderBy[]=${neshaSortOrder}&limit=60`
+         `?query=${params.name}&orderBy[]=${neshaSortOrder}&limit=60&tradeLocked=true`
       )
       const { items: neshastoreItems } = neshastoreResponse
 
