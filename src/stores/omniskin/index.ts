@@ -20,6 +20,7 @@ export const useOmniskin = create<OminiskinState>((set) => ({
          url: '',
       },
       inspect: '',
+      availableAt: '',
    })),
    isFetching: true,
    fetch: async (params) => {
