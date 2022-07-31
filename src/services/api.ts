@@ -40,13 +40,13 @@ export const api = {
       })
    },
 
-   formatLockInterval: (intervalObject: any) =>
+   formatLockInterval: (intervalObject: any, addDayAmount = 0) =>
       intervalObject
-         ? intervalObject?.days > 0
-            ? intervalObject?.days + 'd'
-            : intervalObject?.hours > 0
-            ? intervalObject?.hours + 'h'
-            : intervalObject?.minutes + 'min'
+         ? intervalObject.days > 0
+            ? intervalObject.days + addDayAmount + 'd'
+            : intervalObject.hours > 0
+            ? intervalObject.hours + 'h'
+            : intervalObject.minutes + 'min'
          : null,
 
    sortSkins: (skins: TSkins, field: TSort, order: TOrder) => {
@@ -207,7 +207,7 @@ export const api = {
             inspect: `steam://rungame/730/76561202255233023/+csgo_econ_action_preview S${
                item.bot.steamID64
             }A${item.assetid}D${item.market_actions[0]?.link.split('D').pop()}`,
-            availableAt: api.formatLockInterval(lockInterval),
+            availableAt: api.formatLockInterval(lockInterval, 1),
          }
       })
 
@@ -264,7 +264,7 @@ export const api = {
                           .toUpperCase(),
                image: item.img,
                inspect: item.inspectLink,
-               availableAt: api.formatLockInterval(lockInterval),
+               availableAt: api.formatLockInterval(lockInterval, 2),
             }
          }
       )
