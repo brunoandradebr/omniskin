@@ -158,7 +158,7 @@ export const api = {
 
       // dash skins
       const { data: dashResponse } = await dash.get(
-         `?search=${params.name}&sort_by=${params.sort}&sort_dir=${params.order}&limit=60&page=1`
+         `?search=${params.name}&sort_by=${params.sort}&sort_dir=${params.order}&limit=${params.limit}&page=1`
       )
       const { results: dashItems } = dashResponse
 
@@ -220,7 +220,7 @@ export const api = {
       if (params.sort === 'price' && params.order === 'asc') neshaSortOrder = 1
 
       const { data: neshastoreResponse } = await neshastore.get(
-         `?query=${params.name}&orderBy[]=${neshaSortOrder}&limit=60&tradeLocked=true`
+         `?query=${params.name}&orderBy[]=${neshaSortOrder}&limit=${params.limit}&tradeLocked=true`
       )
       const { items: neshastoreItems } = neshastoreResponse
 
