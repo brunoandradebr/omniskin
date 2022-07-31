@@ -1,7 +1,7 @@
 import { ISkin } from 'services/types/api'
 import { useOmniskin } from 'stores/omniskin'
 
-import { TbEye as InspectIcon } from 'react-icons/tb'
+import { TbEye as InspectIcon, TbLock as LockIcon } from 'react-icons/tb'
 
 import { FloatMeter } from './FloatMeter'
 
@@ -23,6 +23,12 @@ export const Card = ({ skin }: IProps) => {
          {isFetching === false ? (
             <>
                <div className={'skin-imageContainer'}>
+                  {skin.availableAt && (
+                     <div className='skin-lock'>
+                        <LockIcon />
+                        {skin.availableAt}
+                     </div>
+                  )}
                   <img className='skin-image' src={skin.image} />
                   <img
                      title={skin.store.name}

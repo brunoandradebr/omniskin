@@ -67,6 +67,7 @@ export const Container = styled.a`
          border-top-right-radius: 0;
          border-bottom-right-radius: 0;
          padding-inline: 5px;
+         height: 222px;
       }
    }
 
@@ -80,6 +81,37 @@ export const Container = styled.a`
          width: 100px;
          padding: 0px;
       }
+   }
+
+   .skin-lock {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      background-color: #ffe394;
+      text-shadow: none;
+      padding: 2px 10px;
+      border-radius: 20px;
+   }
+
+   @media only screen and (max-width: 536px) {
+      .skin-lock {
+         position: absolute;
+         top: auto;
+         left: auto;
+         bottom: 10px;
+         right: 5px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+      }
+   }
+
+   .skin-lock svg {
+      margin-right: 5px;
    }
 
    .skin-imageContainer .skin-store {
@@ -102,7 +134,7 @@ export const Container = styled.a`
       justify-content: center;
       position: absolute;
       bottom: 10px;
-      left: 20px;
+      left: 10px;
       font-size: 1.8rem;
       padding: 10px;
       color: inherit;

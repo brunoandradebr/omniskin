@@ -24,6 +24,7 @@ export interface ICsmoneySkin {
    steamId: string
    steamImg: string
    stickers: string
+   tradeLock: number
    type: number
    userId: string
 }
@@ -196,6 +197,7 @@ export interface ISkin {
    price: number
    priceFormated: string
    inspect: string
+   availableAt: number
 }
 
 export type TSkins = ISkin[]

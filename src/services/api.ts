@@ -3,6 +3,7 @@ import { csmoney } from './csmoney'
 import { dmarket } from './dmarket'
 import { neshastore } from './neshastore'
 import { dash } from './dash'
+import * as fns from 'date-fns'
 
 import {
    IApiParams,
@@ -39,6 +40,15 @@ export const api = {
       })
    },
 
+   formatLockInterval: (intervalObject: any) =>
+      intervalObject
+         ? intervalObject?.days > 0
+            ? intervalObject?.days + 'd'
+            : intervalObject?.hours > 0
+            ? intervalObject?.hours + 'h'
+            : intervalObject?.minutes + 'min'
+         : null,
+
    sortSkins: (skins: TSkins, field: TSort, order: TOrder) => {
       // prettier-ignore
       return skins.sort((a: ISkin, b: ISkin) =>
@@ -69,23 +79,33 @@ export const api = {
       )
       const { items: csmoneyItems } = csmoneyResponse
 
-      const csmoneySkins: TSkins = csmoneyItems.map((item: ICsmoneySkin) => ({
-         id: String(item.id),
-         store: {
-            name: 'csmoney',
-            url: 'https://cs.money',
-            icon: 'https://cs.money/img/favicon.png',
-            skinUrl: `https://cs.money/pt/csgo/store/?search=${item.fullName}&pattern=${item.pattern}`,
-         },
-         name: item.fullName,
-         float: item.float,
-         price: item.price,
-         priceFormated: api.formatCurrency(item.price * dolar),
-         pattern: item.pattern,
-         quality: item.quality && item.quality.toUpperCase(),
-         image: item.steamImg,
-         inspect: `steam://rungame/730/76561202255233023/+csgo_econ_action_preview S${item.steamId}A${item.assetId}D${item.inspect}`,
-      }))
+      const csmoneySkins: TSkins = csmoneyItems.map((item: ICsmoneySkin) => {
+         const lockInterval = item.tradeLock
+            ? fns.intervalToDuration({
+                 start: new Date(),
+                 end: new Date(item.tradeLock),
+              })
+            : null
+
+         return {
+            id: String(item.id),
+            store: {
+               name: 'csmoney',
+               url: 'https://cs.money',
+               icon: 'https://cs.money/img/favicon.png',
+               skinUrl: `https://cs.money/pt/csgo/store/?search=${item.fullName}&pattern=${item.pattern}`,
+            },
+            name: item.fullName,
+            float: item.float,
+            price: item.price,
+            priceFormated: api.formatCurrency(item.price * dolar),
+            pattern: item.pattern,
+            quality: item.quality && item.quality.toUpperCase(),
+            image: item.steamImg,
+            inspect: `steam://rungame/730/76561202255233023/+csgo_econ_action_preview S${item.steamId}A${item.assetId}D${item.inspect}`,
+            availableAt: api.formatLockInterval(lockInterval),
+         }
+      })
 
       // dmarket skins
       const { data: dmarketResponse } = await dmarket.get(
@@ -93,38 +113,48 @@ export const api = {
       )
       const { cursor, objects: dmarketItems } = dmarketResponse
 
-      const dmarketSkins: TSkins = dmarketItems.map((item: IDmarketSkin) => ({
-         id: item.itemId,
-         store: {
-            name: 'dmarket',
-            url: 'https://dmarket.com/',
-            icon: 'https://cdn-front-static.dmarket.com/prod/v1-209-2/assets/img/fav.ico',
-            skinUrl: `https://dmarket.com/ingame-items/item-list/csgo-skins?userOfferId=${item.extra.linkId}`,
-         },
-         name: item.title,
-         float: item.extra.floatValue,
-         price: Number(item.price.USD) / 100,
-         priceFormated: api.formatCurrency(
-            (Number(item.price.USD) / 100) * dolar
-         ),
-         pattern: item.extra.paintSeed,
-         quality:
-            item.extra.exterior && item.extra.exterior.includes('-')
-               ? item.extra.exterior
-                    .split('-')
-                    .map((word) => word[0])
-                    .join()
-                    .replace(',', '')
-                    .toUpperCase()
-               : item.extra.exterior
-                    .split(' ')
-                    .map((word) => word[0])
-                    .join()
-                    .replace(',', '')
-                    .toUpperCase(),
-         image: item.image,
-         inspect: item.extra.inspectInGame,
-      }))
+      const dmarketSkins: TSkins = dmarketItems.map((item: IDmarketSkin) => {
+         const lockInterval =
+            item.extra.tradeLockDuration &&
+            fns.intervalToDuration({
+               start: 0,
+               end: item.extra.tradeLockDuration * 1000,
+            })
+
+         return {
+            id: item.itemId,
+            store: {
+               name: 'dmarket',
+               url: 'https://dmarket.com/',
+               icon: 'https://cdn-front-static.dmarket.com/prod/v1-209-2/assets/img/fav.ico',
+               skinUrl: `https://dmarket.com/ingame-items/item-list/csgo-skins?userOfferId=${item.extra.linkId}`,
+            },
+            name: item.title,
+            float: item.extra.floatValue,
+            price: Number(item.price.USD) / 100,
+            priceFormated: api.formatCurrency(
+               (Number(item.price.USD) / 100) * dolar
+            ),
+            pattern: item.extra.paintSeed,
+            quality:
+               item.extra.exterior && item.extra.exterior.includes('-')
+                  ? item.extra.exterior
+                       .split('-')
+                       .map((word) => word[0])
+                       .join()
+                       .replace(',', '')
+                       .toUpperCase()
+                  : item.extra.exterior
+                       .split(' ')
+                       .map((word) => word[0])
+                       .join()
+                       .replace(',', '')
+                       .toUpperCase(),
+            image: item.image,
+            inspect: item.extra.inspectInGame,
+            availableAt: api.formatLockInterval(lockInterval),
+         }
+      })
 
       // dash skins
       const { data: dashResponse } = await dash.get(
@@ -152,6 +182,13 @@ export const api = {
          if (item.wear_data.paintindex === -1 && item.wear_data.floatvalue >= 0)
             skinQuality = '★'
 
+         const lockInterval =
+            new Date() < fns.parseISO(item.availableAt) &&
+            fns.intervalToDuration({
+               start: new Date(),
+               end: fns.parseISO(item.availableAt),
+            })
+
          return {
             id: item._id,
             store: {
@@ -170,6 +207,7 @@ export const api = {
             inspect: `steam://rungame/730/76561202255233023/+csgo_econ_action_preview S${
                item.bot.steamID64
             }A${item.assetid}D${item.market_actions[0]?.link.split('D').pop()}`,
+            availableAt: api.formatLockInterval(lockInterval),
          }
       })
 
@@ -187,38 +225,48 @@ export const api = {
       const { items: neshastoreItems } = neshastoreResponse
 
       const neshastoreSkins: TSkins = neshastoreItems.map(
-         (item: INeshastoreSkin) => ({
-            id: String(item.id),
-            store: {
-               name: 'neshastore',
-               url: 'https://neshastore.com/',
-               icon: 'https://i.ibb.co/MM51ZSZ/Logo-Nesha-sem-fundo.png',
-               skinUrl: `https://neshastore.com/csgo/${item.category}/${item.slugType}/${item.slug}?itemId=${item.id}`,
-            },
-            name: item.marketHashName,
-            float: item.float,
-            price: Number(item.price) / dolar,
-            priceFormated: api.formatCurrency(Number(item.price)),
-            pattern: item.paintSeed,
-            quality:
-               item.wearName && item.wearName.includes('-')
-                  ? item.wearName &&
-                    item.wearName
-                       .split('-')
-                       .map((word) => word[0])
-                       .join()
-                       .replace(',', '')
-                       .toUpperCase()
-                  : item.wearName &&
-                    item.wearName
-                       .split(' ')
-                       .map((word) => word[0])
-                       .join()
-                       .replace(',', '')
-                       .toUpperCase(),
-            image: item.img,
-            inspect: item.inspectLink,
-         })
+         (item: INeshastoreSkin) => {
+            const lockInterval =
+               new Date() < fns.parseISO(item.tradelockExpiration) &&
+               fns.intervalToDuration({
+                  start: new Date(),
+                  end: fns.parseISO(item.tradelockExpiration),
+               })
+
+            return {
+               id: String(item.id),
+               store: {
+                  name: 'neshastore',
+                  url: 'https://neshastore.com/',
+                  icon: 'https://i.ibb.co/MM51ZSZ/Logo-Nesha-sem-fundo.png',
+                  skinUrl: `https://neshastore.com/csgo/${item.category}/${item.slugType}/${item.slug}?itemId=${item.id}`,
+               },
+               name: item.marketHashName,
+               float: item.float,
+               price: Number(item.price) / dolar,
+               priceFormated: api.formatCurrency(Number(item.price)),
+               pattern: item.paintSeed,
+               quality:
+                  item.wearName && item.wearName.includes('-')
+                     ? item.wearName &&
+                       item.wearName
+                          .split('-')
+                          .map((word) => word[0])
+                          .join()
+                          .replace(',', '')
+                          .toUpperCase()
+                     : item.wearName &&
+                       item.wearName
+                          .split(' ')
+                          .map((word) => word[0])
+                          .join()
+                          .replace(',', '')
+                          .toUpperCase(),
+               image: item.img,
+               inspect: item.inspectLink,
+               availableAt: api.formatLockInterval(lockInterval),
+            }
+         }
       )
 
       let allSkins: TSkins = []
