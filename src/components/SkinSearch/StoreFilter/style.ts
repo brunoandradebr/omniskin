@@ -30,12 +30,12 @@ export const Container = styled.div`
    }
 
    .store:first-of-type {
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
    }
    .store:last-of-type {
-      border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
       border-right: 2px solid rgba(0, 0, 0, 0.3);
    }
 

@@ -28,7 +28,7 @@ export const GlobalStyles = createGlobalStyle`
       padding: 10px 20px;
       border: 2px solid rgba(0, 0, 0, 0.3);
       background-color: rgba(0, 0, 0, 0.3);
-      border-radius: 20px;
+      border-radius: 10px;
       transition: all .3s;
    }
 

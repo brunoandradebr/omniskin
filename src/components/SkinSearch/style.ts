@@ -9,9 +9,19 @@ export const Container = styled.div`
       gap: 20px;
    }
 
-   @media only screen and (max-width: 1309px) {
+   & input {
+      width: 247px;
+   }
+
+   @media only screen and (max-width: 1330px) {
       & {
          justify-content: center;
+      }
+   }
+
+   @media only screen and (max-width: 536px) {
+      & {
+         justify-content: flex-start;
       }
    }
 `
