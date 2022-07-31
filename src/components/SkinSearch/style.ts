@@ -10,7 +10,7 @@ export const Container = styled.div`
    }
 
    & input {
-      width: 247px;
+      width: 248px;
    }
 
    @media only screen and (max-width: 1330px) {
