@@ -2,5 +2,5 @@ import axios from 'axios'
 
 export const neshastore = axios.create({
    baseURL:
-      'https://thingproxy.freeboard.io/fetch/https://api.neshastore.com/items',
+      'https://cors-anywhere.herokuapp.com/https://api.neshastore.com/items',
 })
