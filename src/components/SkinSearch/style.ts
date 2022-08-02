@@ -9,10 +9,6 @@ export const Container = styled.div`
       gap: 20px;
    }
 
-   & input {
-      width: 248px;
-   }
-
    @media only screen and (max-width: 1330px) {
       & {
          justify-content: center;

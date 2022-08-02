@@ -7,7 +7,9 @@ import {
    BsSortDownAlt as SortDownIcon,
 } from 'react-icons/bs'
 
-import { TSortButtonList, ISortButtonProps } from './types'
+import { useOmniskin } from 'stores/omniskin'
+
+import { TSortButtonList } from './types'
 
 import { Container } from './style'
 
@@ -30,13 +32,28 @@ const sortStates: TSortButtonList = [
    },
 ]
 
-export const SortButton = (props: ISortButtonProps) => {
-   const [currentState, setCurrentState] = React.useState<number>(1)
+export const SortButton = () => {
+   const params = useOmniskin((state) => state.params)
+   const setParams = useOmniskin((state) => state.setParams)
+
+   const [currentState, setCurrentState] = React.useState(
+      sortStates.findIndex(
+         (state) => state.order === params.order && state.sort === params.sort
+      )
+   )
 
    const handleOnClick = () => {
       const newState = (currentState + 1) % sortStates.length
+
       setCurrentState(newState)
-      if (props.onClick) props.onClick(sortStates[newState])
+
+      const { order, sort } = sortStates[newState]
+
+      setParams({
+         sort,
+         order,
+         page: 0,
+      })
    }
 
    const SortPriceAsc = () => (

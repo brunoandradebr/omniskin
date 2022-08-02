@@ -173,12 +173,15 @@ export interface IDashSkin {
 export type TSort = 'price' | 'float'
 export type TOrder = 'asc' | 'desc'
 
+export type TStoreParam = 'csmoney' | 'dmarket' | 'neshastore' | 'dash'
+
 export interface IApiParams {
    name?: string
    limit?: number
+   page?: number
    sort?: TSort
    order?: TOrder
-   stores?: string[] | null
+   stores?: TStoreParam[] | null
 }
 
 export interface ISkin {

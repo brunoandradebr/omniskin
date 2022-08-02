@@ -1,6 +1,7 @@
 import React from 'react'
+import { TStoreParam } from 'services/types/api'
 
-import { IStoreFilterProps } from './types'
+import { useOmniskin } from 'stores/omniskin'
 
 import { Container } from './style'
 
@@ -23,21 +24,17 @@ const storeList = [
    },
 ]
 
-export const StoreFilter = (props: IStoreFilterProps) => {
-   const [activeStores, setActiveStores] = React.useState(
-      storeList.map((store) => store.name)
-   )
+export const StoreFilter = () => {
+   const params = useOmniskin((state) => state.params)
+   const setParams = useOmniskin((state) => state.setParams)
 
-   React.useEffect(() => {
-      if (props.onChange) props.onChange(activeStores)
-   }, [activeStores])
-
-   const handleOnChange = (store: string) => {
-      setActiveStores((state) =>
-         activeStores.includes(store)
-            ? state.filter((activeStore) => activeStore !== store)
-            : [...state, store]
-      )
+   const handleOnChange = (store: TStoreParam) => {
+      setParams({
+         page: 0,
+         stores: params?.stores?.includes(store)
+            ? params.stores.filter((oldStore) => oldStore !== store)
+            : [...(params.stores as []), store],
+      })
    }
 
    return (
@@ -48,9 +45,10 @@ export const StoreFilter = (props: IStoreFilterProps) => {
                   key={store.name}
                   title={store.name}
                   className={`store ${store.name} ${
-                     activeStores.includes(store.name) && '--is-active'
+                     params.stores?.includes(store.name as TStoreParam) &&
+                     '--is-active'
                   }`}
-                  onClick={handleOnChange.bind(this, store.name)}
+                  onClick={handleOnChange.bind(this, store.name as TStoreParam)}
                >
                   <img src={store.image} />
                </div>

@@ -43,6 +43,7 @@ export const GlobalStyles = createGlobalStyle`
       background-color: #242529;
       color: #ddd;
       text-shadow: 1px 2px 1px #000;
+      padding-bottom: 100px;
    }
 
    ::-webkit-scrollbar {

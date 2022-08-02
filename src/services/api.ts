@@ -30,6 +30,8 @@ export const api = {
       } = await quotation.get('last/USD-BRL')
       dolar = Number(dolarPrice)
       api.initialized = true
+
+      localStorage.setItem('dmarketPage', '')
    },
 
    formatCurrency: (price: number) => {
@@ -58,20 +60,10 @@ export const api = {
       )
    },
 
-   get: async (searchParams?: IApiParams) => {
+   get: async (params?: IApiParams) => {
       if (api.initialized === false) {
          await api.init()
       }
-
-      const defaultParams: IApiParams = {
-         name: '',
-         limit: 60,
-         order: 'desc',
-         sort: 'price',
-         stores: [],
-      }
-
-      const params: IApiParams = { ...defaultParams, ...searchParams }
 
       let csmoneySkins: TSkins = []
       let dmarketSkins: TSkins = []
@@ -79,47 +71,62 @@ export const api = {
       let dashSkins: TSkins = []
 
       // csgomoney skins
-      if (params.stores?.includes('csmoney')) {
-         const { data: csmoneyResponse } = await csmoney.get(
-            `?buyBonus=35&isStore=true&name=${params?.name}&limit=${params?.limit}&offset=0&order=${params?.order}&sort=${params?.sort}&withStack=true`
-         )
-         const { items: csmoneyItems } = csmoneyResponse
+      if (params?.stores?.includes('csmoney')) {
+         try {
+            const { data: csmoneyResponse } = await csmoney.get(
+               `?buyBonus=35&isStore=true&name=${params?.name}&limit=${
+                  params?.limit
+               }&offset=${Number(params.page) * Number(params.limit)}&order=${
+                  params?.order
+               }&sort=${params?.sort}&withStack=true`
+            )
+            const { items: csmoneyItems } = csmoneyResponse
 
-         csmoneySkins = csmoneyItems.map((item: ICsmoneySkin) => {
-            const lockInterval = item.tradeLock
-               ? fns.intervalToDuration({
-                    start: new Date(),
-                    end: new Date(item.tradeLock),
-                 })
-               : null
+            csmoneySkins = csmoneyItems.map((item: ICsmoneySkin) => {
+               const lockInterval = item.tradeLock
+                  ? fns.intervalToDuration({
+                       start: new Date(),
+                       end: new Date(item.tradeLock),
+                    })
+                  : null
 
-            return {
-               id: String(item.id),
-               store: {
-                  name: 'csmoney',
-                  url: 'https://cs.money',
-                  icon: 'https://cs.money/img/favicon.png',
-                  skinUrl: `https://cs.money/pt/csgo/store/?search=${item.fullName}&pattern=${item.pattern}`,
-               },
-               name: item.fullName,
-               float: item.float,
-               price: item.price,
-               priceFormated: api.formatCurrency(item.price * dolar),
-               pattern: item.pattern,
-               quality: item.quality && item.quality.toUpperCase(),
-               image: item.steamImg,
-               inspect: `steam://rungame/730/76561202255233023/+csgo_econ_action_preview S${item.steamId}A${item.assetId}D${item.inspect}`,
-               availableAt: api.formatLockInterval(lockInterval),
-            }
-         })
+               return {
+                  id: String(item.id),
+                  store: {
+                     name: 'csmoney',
+                     url: 'https://cs.money',
+                     icon: 'https://cs.money/img/favicon.png',
+                     skinUrl: `https://cs.money/pt/csgo/store/?search=${item.fullName}&pattern=${item.pattern}`,
+                  },
+                  name: item.fullName,
+                  float: item.float,
+                  price: item.price,
+                  priceFormated: api.formatCurrency(item.price * dolar),
+                  pattern: item.pattern,
+                  quality: item.quality && item.quality.toUpperCase(),
+                  image: item.steamImg,
+                  inspect: `steam://rungame/730/76561202255233023/+csgo_econ_action_preview S${item.steamId}A${item.assetId}D${item.inspect}`,
+                  availableAt: api.formatLockInterval(lockInterval),
+               }
+            })
+         } catch (e) {
+            // csmoney last page no more content
+         }
       }
 
       // dmarket skins
-      if (params.stores?.includes('dmarket')) {
+      if (params?.stores?.includes('dmarket')) {
+         const dmarketStoragePageCursor = localStorage.getItem('dmarketPage')
+
          const { data: dmarketResponse } = await dmarket.get(
-            `?side=market&title=${params.name}&priceFrom=0&priceTo=0&gameId=a8db&types=dmarket&cursor&platform=browser&isLoggedIn=false&orderDir=${params?.order}&orderBy=${params?.sort}&limit=${params?.limit}&currency=USD&treeFilters=exterior[]=factory new,exterior[]=minimal wear,exterior[]=field-tested,exterior[]=well-worn,exterior[]=battle-scarred`
+            `?side=market&title=${params.name}&priceFrom=0&priceTo=0&gameId=a8db&types=dmarket&cursor=${dmarketStoragePageCursor}&platform=browser&isLoggedIn=false&orderDir=${params?.order}&orderBy=${params?.sort}&limit=${params?.limit}&currency=USD&treeFilters=exterior[]=factory new,exterior[]=minimal wear,exterior[]=field-tested,exterior[]=well-worn,exterior[]=battle-scarred`
          )
          const { cursor, objects: dmarketItems } = dmarketResponse
+
+         localStorage.setItem(
+            'dmarketPage',
+            cursor ? cursor : dmarketStoragePageCursor
+         )
 
          dmarketSkins = dmarketItems.map((item: IDmarketSkin) => {
             const lockInterval =
@@ -166,9 +173,11 @@ export const api = {
       }
 
       // dash skins
-      if (params.stores?.includes('dash')) {
+      if (params?.stores?.includes('dash')) {
          const { data: dashResponse } = await dash.get(
-            `?search=${params.name}&sort_by=${params.sort}&sort_dir=${params.order}&limit=${params.limit}&page=1`
+            `?search=${params.name}&sort_by=${params.sort}&sort_dir=${
+               params.order
+            }&limit=${params.limit}&page=${Number(params.page) + 1}`
          )
          const { results: dashItems } = dashResponse
 
@@ -228,7 +237,7 @@ export const api = {
       }
 
       // neshastore skins
-      if (params.stores?.includes('neshastore')) {
+      if (params?.stores?.includes('neshastore')) {
          let neshaSortOrder = 1
          if (params.sort === 'price' && params.order === 'asc')
             neshaSortOrder = 1
@@ -241,7 +250,9 @@ export const api = {
             neshaSortOrder = 1
 
          const { data: neshastoreResponse } = await neshastore.get(
-            `?query=${params.name}&orderBy[]=${neshaSortOrder}&limit=${params.limit}&tradeLocked=true`
+            `?query=${params.name}&orderBy[]=${neshaSortOrder}&limit=${
+               params.limit
+            }&tradeLocked=true&page=${Number(params.page) + 1}`
          )
          const { items: neshastoreItems } = neshastoreResponse
 
@@ -291,7 +302,7 @@ export const api = {
 
       let allSkins: TSkins = []
 
-      if (params.stores && params.stores.length) {
+      if (params?.stores && params.stores.length) {
          params.stores?.includes('csmoney') && allSkins.push(...csmoneySkins)
          params.stores?.includes('dmarket') && allSkins.push(...dmarketSkins)
          params.stores?.includes('neshastore') &&
@@ -306,12 +317,6 @@ export const api = {
          ]
       }
 
-      const sorted = api.sortSkins(
-         allSkins,
-         params.sort ?? 'price',
-         params.order ?? 'desc'
-      )
-
-      return sorted
+      return allSkins
    },
 }
