@@ -61,13 +61,15 @@ export const Card = ({ skin }: IProps) => {
                   >
                      <InspectIcon />
                   </a>
-                  <a
-                     onClick={handleInspectInServer.bind(this, skin.inspect)}
-                     className='skin-inspectServer'
-                     title='Inspect in server'
-                  >
-                     <ServerIcon />
-                  </a>
+                  {skin.float && skin.quality && (
+                     <a
+                        onClick={handleInspectInServer.bind(this, skin.inspect)}
+                        className='skin-inspectServer'
+                        title='Inspect in server'
+                     >
+                        <ServerIcon />
+                     </a>
+                  )}
                </div>
 
                <div className='skin-description'>
