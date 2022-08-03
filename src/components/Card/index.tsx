@@ -1,7 +1,10 @@
+import axios from 'axios'
+
 import { ISkin } from 'services/types/api'
 import { useOmniskin } from 'stores/omniskin'
 
 import { TbEye as InspectIcon, TbLock as LockIcon } from 'react-icons/tb'
+import { RiComputerLine as ServerIcon } from 'react-icons/ri'
 
 import { FloatMeter } from './FloatMeter'
 
@@ -14,12 +17,20 @@ interface IProps {
 export const Card = ({ skin }: IProps) => {
    const isFetching = useOmniskin((state) => state.isFetching)
 
+   const handleInspectInServer = async (link: string) => {
+      const { data: serverLink } = await axios.post(
+         'https://api.csgoskins.gg/tests/link',
+         { link }
+      )
+      if (serverLink.needs_to_connect === false) {
+         location.href = 'steam://run/730'
+      } else {
+         location.href = serverLink.connect_to_url
+      }
+   }
+
    return (
-      <Container
-         className={`${isFetching ? '--is-loading' : ''}`}
-         href={skin.store.skinUrl}
-         target='_blank'
-      >
+      <Container className={`${isFetching ? '--is-loading' : ''}`}>
          {isFetching === false ? (
             <>
                <div className={'skin-imageContainer'}>
@@ -29,15 +40,33 @@ export const Card = ({ skin }: IProps) => {
                         {skin.availableAt}
                      </div>
                   )}
-                  <img className='skin-image' src={skin.image} />
+                  <a
+                     className='skin-link'
+                     title='open store link'
+                     href={skin.store.skinUrl}
+                     target='_blank'
+                  >
+                     <img className='skin-image' src={skin.image} />
+                  </a>
                   <img
                      title={skin.store.name}
                      alt={skin.store.name}
                      className='skin-store'
                      src={skin.store.icon}
                   />
-                  <a href={skin.inspect} title='Inspect in game'>
+                  <a
+                     className='skin-inspectGame'
+                     href={skin.inspect}
+                     title='Inspect in game'
+                  >
                      <InspectIcon />
+                  </a>
+                  <a
+                     onClick={handleInspectInServer.bind(this, skin.inspect)}
+                     className='skin-inspectServer'
+                     title='Inspect in server'
+                  >
+                     <ServerIcon />
                   </a>
                </div>
 

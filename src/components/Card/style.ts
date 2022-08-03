@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.a`
+export const Container = styled.div`
    & {
       display: flex;
       flex-direction: column;
@@ -128,13 +128,13 @@ export const Container = styled.a`
       border-bottom-left-radius: 20px;
    }
 
-   .skin-imageContainer a {
+   .skin-imageContainer .skin-inspectGame,
+   .skin-imageContainer .skin-inspectServer {
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       position: absolute;
-      bottom: 10px;
-      left: 10px;
       font-size: 1.8rem;
       padding: 10px;
       color: inherit;
@@ -143,12 +143,31 @@ export const Container = styled.a`
       transition: all 0.3s;
    }
 
-   .skin-imageContainer a:hover {
+   .skin-imageContainer .skin-link {
+      width: inherit;
+   }
+
+   .skin-imageContainer .skin-inspectGame {
+      bottom: 10px;
+      left: 10px;
+   }
+   .skin-imageContainer .skin-inspectServer {
+      right: 10px;
+   }
+
+   .skin-imageContainer .skin-inspectServer {
+      bottom: 10px;
+      right: 10px;
+   }
+
+   .skin-imageContainer .skin-inspectGame:hover,
+   .skin-imageContainer .skin-inspectServer:hover {
       background-color: royalblue;
    }
 
    @media only screen and (max-width: 536px) {
-      .skin-imageContainer a {
+      .skin-imageContainer .skin-inspectGame,
+      .skin-imageContainer .skin-inspectServer {
          visibility: hidden;
       }
    }

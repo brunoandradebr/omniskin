@@ -1,4 +1,3 @@
-import React from 'react'
 import { TStoreParam } from 'services/types/api'
 
 import { useOmniskin } from 'stores/omniskin'
