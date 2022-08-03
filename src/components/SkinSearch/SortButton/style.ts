@@ -16,7 +16,7 @@ export const Container = styled.div`
       transition: all 0.3s;
    }
    .sort-button:hover {
-      border-color: royalblue;
+      border-color: #4b37d2;
    }
 
    .sort-fieldIcon {

@@ -1,5 +1,21 @@
 import styled, { createGlobalStyle } from 'styled-components'
 
+const backgroundAvatarList = [
+   'https://cdn.hellcase.com/warbreak/img/agent/operator-fbi-swat.png',
+   'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/sas_g.png?v=2',
+   'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/gendarm_d.png?v=2',
+   'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/gendarm_c.png?v=3',
+   'https://www.csgodatabase.com/images/agents/profile/Rezan_The_Ready.png',
+   'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/jungleraider_d.png',
+   'https://static.invenglobal.com/upload/image/2021/09/22/i1632291793365468.png',
+   'https://static.invenglobal.com/upload/image/2021/09/22/i1632291802144837.png',
+   'https://static.invenglobal.com/upload/image/2021/09/22/i1632291803617247.png',
+   'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/swat_k.png?v=2',
+]
+
+const rndIndex = Math.round(Math.random() * (backgroundAvatarList.length - 1))
+const backgroundAvatar = backgroundAvatarList[rndIndex]
+
 export const Container = styled.div`
    & {
       display: flex;
@@ -34,16 +50,23 @@ export const GlobalStyles = createGlobalStyle`
 
    input:hover,
    input:focus {
-      border-color: royalblue;
+      border-color: #4b37d2;
       outline: none;
    }
 
    body {
       font-size: 1.6rem;
-      background-color: #242529;
       color: #ddd;
       text-shadow: 1px 2px 1px #000;
       padding-bottom: 100px;
+      background: url(${backgroundAvatar}) no-repeat 103% bottom #242529;
+      background-attachment: fixed;
+   }
+
+   @media only screen and (max-width: 1699px) {
+      body {
+         background-image: none;
+      }
    }
 
    ::-webkit-scrollbar {

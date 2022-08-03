@@ -3,7 +3,7 @@ import { Container } from './style'
 export const Header = () => {
    return (
       <Container>
-         <h1>OmniSkin</h1>
+         <div className='logo'></div>
       </Container>
    )
 }

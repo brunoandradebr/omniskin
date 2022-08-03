@@ -55,7 +55,7 @@ export const Container = styled.div`
       border-radius: inherit;
       border-bottom-left-radius: 20px;
       margin-bottom: 20px;
-      background-color: rgba(0, 0, 0, 0.3);
+      background: radial-gradient(transparent 27%, #121212 120%);
       transition: all 0.3s;
    }
 
@@ -162,7 +162,7 @@ export const Container = styled.div`
 
    .skin-imageContainer .skin-inspectGame:hover,
    .skin-imageContainer .skin-inspectServer:hover {
-      background-color: royalblue;
+      background-color: #4b37d2;
    }
 
    @media only screen and (max-width: 536px) {
@@ -180,9 +180,9 @@ export const Container = styled.div`
    }
 
    .skin-name {
+      height: 80px;
       padding-bottom: 20px;
       margin-bottom: 10px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
    }
 
    .skin-quality,
