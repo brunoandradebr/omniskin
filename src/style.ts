@@ -1,14 +1,68 @@
 import styled, { createGlobalStyle } from 'styled-components'
 
+import agent2 from './assets/images/agents/agent2.webp'
+import agent7 from './assets/images/agents/agent7.webp'
+import agent8 from './assets/images/agents/agent8.webp'
+import agent9 from './assets/images/agents/agent9.webp'
+import agent12 from './assets/images/agents/agent12.webp'
+import agent13 from './assets/images/agents/agent13.webp'
+import agent14 from './assets/images/agents/agent14.webp'
+import agent15 from './assets/images/agents/agent15.webp'
+import agent16 from './assets/images/agents/agent16.webp'
+import agent18 from './assets/images/agents/agent18.webp'
+import agent19 from './assets/images/agents/agent19.webp'
+import agent21 from './assets/images/agents/agent21.webp'
+import agent22 from './assets/images/agents/agent22.webp'
+import agent23 from './assets/images/agents/agent23.webp'
+import agent26 from './assets/images/agents/agent26.webp'
+import agent27 from './assets/images/agents/agent27.webp'
+import agent28 from './assets/images/agents/agent28.webp'
+import agent29 from './assets/images/agents/agent29.webp'
+import agent31 from './assets/images/agents/agent31.webp'
+import agent32 from './assets/images/agents/agent32.webp'
+import agent34 from './assets/images/agents/agent34.webp'
+import agent35 from './assets/images/agents/agent35.webp'
+import agent36 from './assets/images/agents/agent36.webp'
+import agent37 from './assets/images/agents/agent37.webp'
+import agent38 from './assets/images/agents/agent38.webp'
+import agent39 from './assets/images/agents/agent39.webp'
+import agent40 from './assets/images/agents/agent40.webp'
+import agent41 from './assets/images/agents/agent41.webp'
+import agent42 from './assets/images/agents/agent42.webp'
+
 const backgroundAvatarList = [
+   agent2,
+   agent7,
+   agent8,
+   agent9,
+   agent12,
+   agent13,
+   agent14,
+   agent15,
+   agent16,
+   agent18,
+   agent19,
+   agent21,
+   agent22,
+   agent23,
+   agent26,
+   agent27,
+   agent28,
+   agent29,
+   agent31,
+   agent32,
+   agent34,
+   agent35,
+   agent36,
+   agent37,
+   agent38,
+   agent39,
+   agent40,
+   agent41,
+   agent42,
    'https://cdn.hellcase.com/warbreak/img/agent/operator-fbi-swat.png',
-   'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/sas_g.png?v=2',
    'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/gendarm_d.png?v=2',
    'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/gendarm_c.png?v=3',
-   'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/jungleraider_d.png',
-   'https://static.invenglobal.com/upload/image/2021/09/22/i1632291793365468.png',
-   'https://static.invenglobal.com/upload/image/2021/09/22/i1632291802144837.png',
-   'https://static.invenglobal.com/upload/image/2021/09/22/i1632291803617247.png',
    'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/swat_k.png?v=2',
 ]
 
@@ -85,7 +139,7 @@ export const GlobalStyles = createGlobalStyle`
       padding-bottom: 100px;
       background: url(${backgroundAvatar}) no-repeat 103% bottom #242529;
       background-attachment: fixed;
-      background-size: 25%;
+      background-size: 21%;
    }
 
    @media only screen and (max-width: 1242px) {
