@@ -74,6 +74,12 @@ export const Container = styled.div`
    .skin-imageContainer .skin-image {
       width: inherit;
       padding: 40px;
+      filter: drop-shadow(-15px 5px 6px rgba(0, 0, 0, 0.5));
+      transition: all 0.3s;
+   }
+
+   &:hover .skin-image {
+      filter: drop-shadow(-15px 5px 0px rgba(0, 0, 0, 0.5));
    }
 
    @media only screen and (max-width: 536px) {
