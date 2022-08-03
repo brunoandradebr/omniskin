@@ -5,7 +5,6 @@ const backgroundAvatarList = [
    'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/sas_g.png?v=2',
    'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/gendarm_d.png?v=2',
    'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/gendarm_c.png?v=3',
-   'https://www.csgodatabase.com/images/agents/profile/Rezan_The_Ready.png',
    'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/jungleraider_d.png',
    'https://static.invenglobal.com/upload/image/2021/09/22/i1632291793365468.png',
    'https://static.invenglobal.com/upload/image/2021/09/22/i1632291802144837.png',
@@ -23,6 +22,31 @@ export const Container = styled.div`
       max-width: 1336px;
       margin: 0 auto;
       padding: 20px;
+      align-items: flex-start;
+   }
+
+   @media only screen and (max-width: 1894px) {
+      & {
+         max-width: 80%;
+      }
+   }
+
+   @media only screen and (max-width: 1770px) {
+      & {
+         max-width: 75%;
+      }
+   }
+
+   @media only screen and (max-width: 1460px) {
+      & {
+         max-width: 65%;
+      }
+   }
+
+   @media only screen and (max-width: 1242px) {
+      & {
+         max-width: fit-content;
+      }
    }
 `
 
@@ -61,9 +85,10 @@ export const GlobalStyles = createGlobalStyle`
       padding-bottom: 100px;
       background: url(${backgroundAvatar}) no-repeat 103% bottom #242529;
       background-attachment: fixed;
+      background-size: 25%;
    }
 
-   @media only screen and (max-width: 1699px) {
+   @media only screen and (max-width: 1242px) {
       body {
          background-image: none;
       }

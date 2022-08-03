@@ -5,7 +5,12 @@ export const Container = styled.div`
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
-      justify-content: center;
+   }
+
+   @media only screen and (max-width: 1242px) {
+      & {
+         justify-content: center;
+      }
    }
 
    .list-separator {
