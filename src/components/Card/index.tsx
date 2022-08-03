@@ -47,6 +47,7 @@ export const Card = ({ skin }: IProps) => {
                      target='_blank'
                   >
                      <img className='skin-image' src={skin.image} />
+                     <img className='skin-imageShadow' src={skin.image} />
                   </a>
                   <img
                      title={skin.store.name}

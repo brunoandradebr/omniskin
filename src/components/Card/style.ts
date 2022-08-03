@@ -71,21 +71,43 @@ export const Container = styled.div`
       }
    }
 
-   .skin-imageContainer .skin-image {
+   .skin-imageContainer .skin-image,
+   .skin-imageContainer .skin-imageShadow {
       width: inherit;
       padding: 40px;
       filter: drop-shadow(-15px 5px 6px rgba(0, 0, 0, 0.5));
       transition: all 0.3s;
    }
+   .skin-imageContainer .skin-imageShadow {
+      position: absolute;
+      top: 66px;
+      left: 0px;
+      z-index: -1;
+      transform: rotateX(117deg);
+      filter: blur(3px) opacity(0.1);
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, transparent 33%);
+      background-position-y: -60px;
+   }
+   &:hover .skin-imageShadow {
+      filter: blur(7px) opacity(0.5);
+   }
 
    &:hover .skin-image {
-      filter: drop-shadow(-15px 5px 0px rgba(0, 0, 0, 0.5));
+      filter: none;
    }
 
    @media only screen and (max-width: 536px) {
-      .skin-imageContainer .skin-image {
+      .skin-imageContainer .skin-image,
+      .skin-imageContainer .skin-imageShadow {
          width: 100px;
          padding: 0px;
+      }
+
+      .skin-imageContainer .skin-imageShadow {
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
       }
    }
 
