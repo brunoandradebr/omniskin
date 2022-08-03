@@ -17,7 +17,25 @@ export const Container = styled.div`
       padding-block: 5px;
       border: 2px solid rgba(0, 0, 0, 0.3);
       border-right: 0;
+      filter: grayscale(1);
       transition: all 0.3s;
+   }
+
+   @keyframes effect {
+      0% {
+         filter: brightness(1);
+      }
+      50% {
+         filter: brightness(1.4);
+      }
+      100% {
+         filter: brightness(1);
+      }
+   }
+
+   .store.store.--is-active,
+   .store.store:hover {
+      animation: effect 2.5s ease-in-out infinite;
    }
 
    .store.--is-active,
