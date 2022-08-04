@@ -11,6 +11,6 @@ export default defineConfig({
       host: true,
    },
    build: {
-      target: ['chrome58', 'chrome >=87'],
+      target: ['chrome58'],
    },
 })
