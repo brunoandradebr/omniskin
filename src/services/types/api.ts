@@ -23,7 +23,17 @@ export interface ICsmoneySkin {
    screenshot: string
    steamId: string
    steamImg: string
-   stickers: string
+   stickers: [
+      {
+         img: string
+         name: string
+         overprice: number
+         position: number
+         price: number
+         wear: number
+         wikiLink: string
+      }
+   ]
    tradeLock: number
    type: number
    userId: string
@@ -52,6 +62,12 @@ export interface IDmarketSkin {
       paintSeed: number
       quality: string
       saleRestricted: boolean
+      stickers: [
+         {
+            name: string
+            image: string
+         }
+      ]
       tradable: boolean
       tradeLockDuration: number
       viewAtSteam: string
@@ -113,7 +129,15 @@ export interface INeshastoreSkin {
    slug: string
    slugType: string
    status: number
-   stickers: []
+   stickers: [
+      {
+         imageUrl: string
+         name: string
+         nameBr: string
+         slot: number
+         wear: string
+      }
+   ]
    tags: []
    tradelockExpiration: string
    type: number
@@ -151,7 +175,12 @@ export interface IDashSkin {
    quality: string
    rarity: string
    steamPrice: number
-   stickers: []
+   stickers: [
+      {
+         name: string
+         image: string
+      }
+   ]
    tradedAt: string
    type: string
    updatedAt: string
@@ -197,6 +226,12 @@ export interface ISkin {
    quality: string
    float: number
    pattern: number
+   stickers?: [
+      {
+         name: string
+         image: string
+      }
+   ]
    price: number
    priceFormated: string
    inspect: string

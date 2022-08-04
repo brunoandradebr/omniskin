@@ -5,12 +5,15 @@ import { api } from 'services/api'
 import { OminiskinState } from './types'
 
 const randomSkinName = [
+   'eagle',
+   'usp',
+   'm4a1',
+   'ak-47',
    'butterfly',
    'bayoneta',
-   'karambit',
-   'talon',
-   'skeleton knife',
+   'flip knife',
    'cobalt skulls',
+   'glove',
 ]
 
 const randomIndex = Math.round(Math.random() * (randomSkinName.length - 1))

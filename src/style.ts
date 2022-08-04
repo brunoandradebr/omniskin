@@ -60,7 +60,6 @@ const backgroundAvatarList = [
    agent40,
    agent41,
    agent42,
-   'https://cdn.hellcase.com/warbreak/img/agent/operator-fbi-swat.png',
    'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/gendarm_d.png?v=2',
    'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/gendarm_c.png?v=3',
    'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/swat_k.png?v=2',

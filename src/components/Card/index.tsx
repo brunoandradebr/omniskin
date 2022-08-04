@@ -55,6 +55,18 @@ export const Card = ({ skin }: IProps) => {
                      className='skin-store'
                      src={skin.store.icon}
                   />
+
+                  <div className='skin-stickers'>
+                     {skin.stickers?.map((sticker) => (
+                        <img
+                           className='skin-sticker'
+                           alt={sticker.name}
+                           title={sticker.name}
+                           src={sticker.image}
+                        />
+                     ))}
+                  </div>
+
                   <a
                      className='skin-inspectGame'
                      href={skin.inspect}

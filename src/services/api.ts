@@ -107,6 +107,12 @@ export const api = {
                   image: item.steamImg,
                   inspect: `steam://rungame/730/76561202255233023/+csgo_econ_action_preview S${item.steamId}A${item.assetId}D${item.inspect}`,
                   availableAt: api.formatLockInterval(lockInterval),
+                  stickers:
+                     item.stickers &&
+                     item.stickers.map((sticker) => ({
+                        name: sticker.name,
+                        image: sticker.img,
+                     })),
                }
             })
          } catch (e) {
@@ -168,6 +174,12 @@ export const api = {
                image: item.image,
                inspect: item.extra.inspectInGame,
                availableAt: api.formatLockInterval(lockInterval),
+               stickers:
+                  item.extra.stickers &&
+                  item.extra.stickers.map((sticker) => ({
+                     name: sticker.name,
+                     image: sticker.image,
+                  })),
             }
          })
       }
@@ -232,6 +244,12 @@ export const api = {
                   .split('D')
                   .pop()}`,
                availableAt: api.formatLockInterval(lockInterval, 1),
+               stickers:
+                  item.stickers &&
+                  item.stickers.map((sticker) => ({
+                     name: sticker.name,
+                     image: sticker.image,
+                  })),
             }
          })
       }
@@ -296,6 +314,12 @@ export const api = {
                image: item.img,
                inspect: item.inspectLink,
                availableAt: api.formatLockInterval(lockInterval, 2),
+               stickers:
+                  item.stickers &&
+                  item.stickers.map((sticker) => ({
+                     name: sticker.name,
+                     image: sticker.imageUrl,
+                  })),
             }
          })
       }

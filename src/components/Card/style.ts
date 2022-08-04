@@ -104,10 +104,10 @@ export const Container = styled.div`
       }
 
       .skin-imageContainer .skin-imageShadow {
-         position: absolute;
          top: 80%;
          left: 50%;
-         transform: translate(-50%, -50%);
+         transform: translate(-50%, -80%) rotateX(117deg);
+         background-position-y: 0px;
       }
    }
 
@@ -144,16 +144,50 @@ export const Container = styled.div`
 
    .skin-imageContainer .skin-store {
       position: absolute;
-      top: 4px;
+      top: -10px;
       right: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 48px;
       padding: 10px;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.8);
       border-radius: inherit;
-      border-bottom-left-radius: 20px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+   }
+
+   .skin-imageContainer .skin-stickers {
+      position: absolute;
+      top: 0;
+      right: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      height: 98%;
+   }
+
+   @media only screen and (max-width: 536px) {
+      .skin-imageContainer .skin-stickers {
+         top: auto;
+         bottom: 5px;
+         flex-direction: row;
+         gap: 0;
+         width: 90%;
+         height: auto;
+      }
+   }
+
+   .skin-imageContainer .skin-sticker {
+      width: 32px;
+   }
+
+   @media only screen and (max-width: 536px) {
+      .skin-imageContainer .skin-sticker {
+         width: 28px;
+      }
    }
 
    .skin-imageContainer .skin-inspectGame,
@@ -176,16 +210,13 @@ export const Container = styled.div`
    }
 
    .skin-imageContainer .skin-inspectGame {
-      bottom: 10px;
-      left: 10px;
-   }
-   .skin-imageContainer .skin-inspectServer {
-      right: 10px;
+      bottom: 5px;
+      left: 5px;
    }
 
    .skin-imageContainer .skin-inspectServer {
-      bottom: 10px;
-      right: 10px;
+      bottom: 5px;
+      right: 5px;
    }
 
    .skin-imageContainer .skin-inspectGame:hover,
