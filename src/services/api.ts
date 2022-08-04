@@ -110,8 +110,8 @@ export const api = {
                   stickers:
                      item.stickers &&
                      item.stickers.map((sticker) => ({
-                        name: sticker.name,
-                        image: sticker.img,
+                        name: sticker && sticker.name,
+                        image: sticker && sticker.img,
                      })),
                }
             })
