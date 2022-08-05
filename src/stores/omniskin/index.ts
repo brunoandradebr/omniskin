@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid'
 import create from 'zustand'
 
 import { api } from 'services/api'
@@ -20,7 +21,7 @@ const randomIndex = Math.round(Math.random() * (randomSkinName.length - 1))
 
 export const useOmniskin = create<OminiskinState>((set) => ({
    skins: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0].map((fakeSkin) => ({
-      id: window.crypto.randomUUID(),
+      id: uuid(),
       name: '',
       float: 0,
       image: '',

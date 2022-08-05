@@ -17,7 +17,7 @@ export const Container = styled.div`
       position: relative;
       width: 100%;
       height: 2px;
-      margin-block: 20px;
+      margin: 20px 0px;
       background-color: rgba(0, 0, 0, 0.3);
       box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.1);
    }

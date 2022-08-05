@@ -10,7 +10,4 @@ export default defineConfig({
    server: {
       host: true,
    },
-   build: {
-      target: ['chrome58'],
-   },
 })

@@ -13,8 +13,7 @@ export const Container = styled.div`
       align-items: center;
       justify-content: center;
       background-color: rgba(0, 0, 0, 0.3);
-      padding-inline: 20px;
-      padding-block: 5px;
+      padding: 5px 20px;
       border: 2px solid rgba(0, 0, 0, 0.3);
       border-right: 0;
       filter: grayscale(1);

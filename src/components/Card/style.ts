@@ -66,7 +66,7 @@ export const Container = styled.div`
          border-radius: inherit;
          border-top-right-radius: 0;
          border-bottom-right-radius: 0;
-         padding-inline: 5px;
+         padding: 0px 5px;
          height: 222px;
       }
    }
