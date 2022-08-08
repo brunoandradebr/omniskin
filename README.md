@@ -11,7 +11,7 @@ Cs go skin markets grouped on one page.
   
 
 # Preview #
-<img src="https://raw.githubusercontent.com/brunoandradebr/omniskin/main/print.png" />
+[<img src="https://raw.githubusercontent.com/brunoandradebr/omniskin/main/print.png" />](https://brunoandradebr.github.io/omniskin/)
 
 # Tecnologies #
   * Vite
