@@ -31,76 +31,76 @@ import agent41 from './assets/images/agents/agent41.webp'
 import agent42 from './assets/images/agents/agent42.webp'
 
 const backgroundAvatarList = [
-   agent2,
-   agent7,
-   agent8,
-   agent9,
-   agent12,
-   agent13,
-   agent14,
-   agent15,
-   agent16,
-   agent18,
-   agent19,
-   agent21,
-   agent22,
-   agent23,
-   agent26,
-   agent27,
-   agent28,
-   agent29,
-   agent31,
-   agent32,
-   agent34,
-   agent35,
-   agent36,
-   agent37,
-   agent38,
-   agent39,
-   agent40,
-   agent41,
-   agent42,
-   'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/gendarm_d.png?v=2',
-   'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/gendarm_c.png?v=3',
-   'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/swat_k.png?v=2',
+  agent2,
+  agent7,
+  agent8,
+  agent9,
+  agent12,
+  agent13,
+  agent14,
+  agent15,
+  agent16,
+  agent18,
+  agent19,
+  agent21,
+  agent22,
+  agent23,
+  agent26,
+  agent27,
+  agent28,
+  agent29,
+  agent31,
+  agent32,
+  agent34,
+  agent35,
+  agent36,
+  agent37,
+  agent38,
+  agent39,
+  agent40,
+  agent41,
+  agent42,
+  'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/gendarm_d.png?v=2',
+  'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/gendarm_c.png?v=3',
+  'https://cdn.akamai.steamstatic.com/apps/csgo/images/operationriptide/agents/swat_k.png?v=2',
 ]
 
 const rndIndex = Math.round(Math.random() * (backgroundAvatarList.length - 1))
 const backgroundAvatar = backgroundAvatarList[rndIndex]
 
 export const Container = styled.div`
-   & {
-      display: flex;
-      flex-direction: column;
-      max-width: 1336px;
-      margin: 0 auto;
-      padding: 20px;
-      align-items: flex-start;
-   }
+  & {
+    display: flex;
+    flex-direction: column;
+    max-width: 1336px;
+    margin: 0 auto;
+    padding: 20px;
+    align-items: flex-start;
+  }
 
-   @media only screen and (max-width: 1894px) {
-      & {
-         max-width: 80%;
-      }
-   }
+  @media only screen and (max-width: 1894px) {
+    & {
+      max-width: 80%;
+    }
+  }
 
-   @media only screen and (max-width: 1770px) {
-      & {
-         max-width: 75%;
-      }
-   }
+  @media only screen and (max-width: 1770px) {
+    & {
+      max-width: 75%;
+    }
+  }
 
-   @media only screen and (max-width: 1460px) {
-      & {
-         max-width: 65%;
-      }
-   }
+  @media only screen and (max-width: 1460px) {
+    & {
+      max-width: 65%;
+    }
+  }
 
-   @media only screen and (max-width: 1242px) {
-      & {
-         max-width: fit-content;
-      }
-   }
+  @media only screen and (max-width: 1242px) {
+    & {
+      max-width: fit-content;
+    }
+  }
 `
 
 export const GlobalStyles = createGlobalStyle`
@@ -129,6 +129,43 @@ export const GlobalStyles = createGlobalStyle`
    input:focus {
       border-color: #4b37d2;
       outline: none;
+   }
+
+   button {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      user-select: none;
+      gap: 5px;
+      cursor: pointer;
+      color: #ddd;
+      padding: 10px;
+      padding-bottom: 15px;
+      border: none;
+      border-radius: 10px;
+      background-color: #4b37d2;
+      text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.8);
+      box-shadow: 0px -2px 0px 1px rgba(0, 0, 0, 0.3) inset,
+      0px 2px 2px 2px rgba(0, 0, 0, 0.3);
+      transition: all .2s;
+   }
+   
+   button:hover {
+      background-color: #4330bc;      
+   }
+   
+   button:active {
+      box-shadow: 0px -1px 0px 1px rgba(0, 0, 0, 0.3) inset,
+      0px 0px 2px 0px rgba(0, 0, 0, 0.3);
+      transition: none;
+      transform: translateY(1px);
+   }
+
+   button:disabled {
+      pointer-events: none;
+      text-shadow: none;
+      box-shadow: none;
+      filter: grayscale();
    }
 
    body {
