@@ -95,7 +95,7 @@ export const api = {
                   store: {
                      name: 'csmoney',
                      url: 'https://cs.money',
-                     icon: 'https://cs.money/img/favicon.png',
+                     icon: 'https://cs.money/img/favicon.ico',
                      skinUrl: `https://cs.money/pt/csgo/store/?search=${item.fullName}&pattern=${item.pattern}`,
                   },
                   name: item.fullName,
