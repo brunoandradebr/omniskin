@@ -228,7 +228,7 @@ export const api = {
           image: `https://steamcommunity-a.akamaihd.net/economy/image/${item.icon_url}`,
           inspect: `steam://rungame/730/76561202255233023/+csgo_econ_action_preview S${
             item.bot.steamID64
-          }A${item.assetid}D${item.market_actions[0]?.link.split('D').pop()}`,
+          }A${item.assetid}D${item.actions[0]?.link.split('D').pop()}`,
           availableAt: api.formatLockInterval(lockInterval, 1),
           stickers:
             item.stickers &&
