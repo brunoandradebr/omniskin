@@ -123,7 +123,9 @@ export const api = {
       const dmarketStoragePageCursor = localStorage.getItem('dmarketPage')
 
       const { data: dmarketResponse } = await dmarket.get(
-        `?side=market&title=${params.name}&priceFrom=0&priceTo=0&gameId=a8db&types=dmarket&cursor=${dmarketStoragePageCursor}&platform=browser&isLoggedIn=false&orderDir=${params?.order}&orderBy=${params?.sort}&limit=${params?.limit}&currency=USD&treeFilters=exterior[]=factory new,exterior[]=minimal wear,exterior[]=field-tested,exterior[]=well-worn,exterior[]=battle-scarred`,
+        encodeURIComponent(
+          `?side=market&title=${params.name}&priceFrom=0&priceTo=0&gameId=a8db&types=dmarket&cursor=${dmarketStoragePageCursor}&platform=browser&isLoggedIn=false&orderDir=${params?.order}&orderBy=${params?.sort}&limit=${params?.limit}&currency=USD&treeFilters=exterior[]=factory new,exterior[]=minimal wear,exterior[]=field-tested,exterior[]=well-worn,exterior[]=battle-scarred`,
+        ),
       )
       const { cursor, objects: dmarketItems } = dmarketResponse
 
