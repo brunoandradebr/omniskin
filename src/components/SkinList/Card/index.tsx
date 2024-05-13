@@ -18,10 +18,9 @@ export const Card = ({ skin }: IProps) => {
   const isFetching = useOmniskin(state => state.isFetching)
 
   const handleInspectInServer = async (link: string) => {
-    const { data: serverLink } = await axios.post(
-      'https://api.csgoskins.gg/tests/link',
-      { link },
-    )
+    const { data: serverLink } = await axios.post('https://api.csgoskins.gg/tests/link', {
+      link,
+    })
     if (serverLink.needs_to_connect === false) {
       location.href = 'steam://run/730'
     } else {
@@ -68,22 +67,9 @@ export const Card = ({ skin }: IProps) => {
               ))}
             </div>
 
-            <a
-              className="skin-inspectGame"
-              href={skin.inspect}
-              title="Inspect in game"
-            >
+            <a className="skin-inspectGame" href={skin.inspect} title="Inspect in game">
               <InspectIcon />
             </a>
-            {skin.float && skin.quality && (
-              <a
-                onClick={handleInspectInServer.bind(this, skin.inspect)}
-                className="skin-inspectServer"
-                title="Inspect in server"
-              >
-                <ServerIcon />
-              </a>
-            )}
           </div>
 
           <div className="skin-description">

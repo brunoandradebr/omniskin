@@ -5,7 +5,6 @@ import { useOmniskin } from 'stores/omniskin'
 import { NameFilter } from './NameFilter'
 import { StoreFilter } from './StoreFilter'
 import { SortButton } from './SortButton'
-import { SkinTester } from './SkinTester'
 
 import { Container } from './style'
 
@@ -17,7 +16,7 @@ export const SkinSearch = () => {
 
   React.useEffect(() => {
     const loadSkins = async () => {
-      await fetchSkins(params)
+      fetchSkins(params)
     }
     clearTimeout(debounce)
     setDebounce(setTimeout(loadSkins, 1000))
@@ -28,7 +27,6 @@ export const SkinSearch = () => {
       <NameFilter />
       <SortButton />
       <StoreFilter />
-      <SkinTester />
     </Container>
   )
 }
