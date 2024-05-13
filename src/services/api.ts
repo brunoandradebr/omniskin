@@ -203,7 +203,11 @@ export const api = {
               .join(',')
               .replace(',', '')
 
-        if (item.wear_data.paintindex === -1 && item.wear_data.floatvalue >= 0)
+        if (
+          item.wear_data &&
+          item.wear_data.paintindex === -1 &&
+          item.wear_data.floatvalue >= 0
+        )
           skinQuality = '★'
 
         const lockInterval =
@@ -222,10 +226,10 @@ export const api = {
             skinUrl: `https://dashskins.com.br/item/1/${item._id}`,
           },
           name: item.market_hash_name,
-          float: item.wear_data.floatvalue,
+          float: item?.wear_data?.floatvalue,
           price: item.price / dolar,
           priceFormated: api.formatCurrency(item.price),
-          pattern: item.wear_data.paintseed,
+          pattern: item?.wear_data?.paintseed,
           quality: skinQuality,
           image: `https://steamcommunity-a.akamaihd.net/economy/image/${item.icon_url}`,
           inspect: `steam://rungame/730/76561202255233023/+csgo_econ_action_preview S${
