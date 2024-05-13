@@ -16,53 +16,41 @@ export const SkinList = () => {
   const resultTotal = useOmniskin(state => state.resultTotal)
   const skinList = useOmniskin(state => state.skins)
 
-  const [isScrollLimit, setIsScrollLimit] = React.useState<boolean>()
-
   React.useEffect(() => {
-    window.addEventListener('scroll', e =>
-      setIsScrollLimit(
-        window.innerHeight + window.scrollY >= document.body.scrollHeight,
-      ),
-    )
-  }, [])
-
-  React.useEffect(() => {
-    const loadMoreContent = async () => {
-      await fetchSkins(params, true)
-
-      if (listSeparatorRef.current) {
-        const y =
-          listSeparatorRef.current.getBoundingClientRect().top +
-          window.pageYOffset -
-          30
-        window.scrollTo({ top: y, behavior: 'smooth' })
-      }
+    if (isFetching === false && listSeparatorRef.current) {
+      const y =
+        listSeparatorRef.current.getBoundingClientRect().top + window.pageYOffset - 30
+      window.scrollTo({ top: y, behavior: 'smooth' })
     }
-
-    if (params.page && resultTotal > 0) loadMoreContent()
-  }, [params.page])
+  }, [isFetching])
 
   React.useEffect(() => {
-    const changeParamsPage = async () => {
-      setParams({
-        page: Number(params.page) + 1,
-      })
-    }
+    if (isFetching === false && params.page && resultTotal > 0) fetchSkins(params, true)
+  }, [params])
 
-    if (isFetching === false && isScrollLimit) changeParamsPage()
-  }, [isScrollLimit])
+  const handleLoadMore = () => {
+    setParams({
+      page: Number(params.page) + 1,
+    })
+  }
 
   return (
     <Container>
       {skinList &&
         skinList.map((skin, index) => (
           <React.Fragment key={skin.id}>
-            {Number(params.page) > 0 &&
-              index === skinList.length - resultTotal && (
-                <div ref={listSeparatorRef} className="list-separator" />
-              )}
+            {Number(params.page) > 0 && index === skinList.length - resultTotal && (
+              <div ref={listSeparatorRef} className="list-separator" />
+            )}
             <Card key={skin.id} skin={skin} />
           </React.Fragment>
+        ))}
+
+      {isFetching === false &&
+        (resultTotal > 0 ? (
+          <button onClick={handleLoadMore}>load more</button>
+        ) : (
+          <div className="list-separator --is-end" />
         ))}
     </Container>
   )
