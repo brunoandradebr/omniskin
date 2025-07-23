@@ -23,15 +23,23 @@ export const api = {
   initialized: false,
 
   init: async () => {
-    const {
-      data: {
-        USDBRL: { bid: dolarPrice },
-      },
-    } = await quotation.get('last/USD-BRL')
-    dolar = Number(dolarPrice)
-    api.initialized = true
+    try {
+      const today = fns.format(new Date(), 'MM-dd-yyyy')
 
-    localStorage.setItem('dmarketPage', '')
+      const {
+        data: {
+          value: [cotation],
+        },
+      } = await quotation.get(
+        `CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao=%27${today}%27&$top=1&$format=json`
+      )
+      dolar = cotation.cotacaoCompra
+      api.initialized = true
+
+      localStorage.setItem('dmarketPage', '')
+    } catch (e) {
+      console.log('error:', e)
+    }
   },
 
   formatCurrency: (price: number) => {
@@ -74,42 +82,35 @@ export const api = {
     if (params?.stores?.includes('csmoney')) {
       try {
         const { data: csmoneyResponse } = await csmoney.get(
-          `?buyBonus=35&isStore=true&name=${params?.name}&limit=${params?.limit}&offset=${
-            Number(params.page) * Number(params.limit)
-          }&order=${params?.order}&sort=${params?.sort}&withStack=true`,
+          `?name=${params?.name}&limit=${params?.limit}&offset=${Number(params.page) * Number(params.limit)}&order=${
+            params?.order
+          }&sort=${params?.sort}&hasStickers=true`
         )
         const { items: csmoneyItems } = csmoneyResponse
 
         csmoneySkins = csmoneyItems.map((item: ICsmoneySkin) => {
-          const lockInterval = item.tradeLock
-            ? fns.intervalToDuration({
-                start: new Date(),
-                end: new Date(item.tradeLock),
-              })
-            : null
-
           return {
             id: String(item.id),
             store: {
               name: 'csmoney',
               url: 'https://cs.money',
               icon: 'https://cs.money/img/favicon.ico',
-              skinUrl: `https://cs.money/pt/csgo/store/?search=${item.fullName}&pattern=${item.pattern}`,
+              skinUrl: `https://cs.money/pt/market/buy/?search=${encodeURI(item.asset.names.full)}`,
             },
-            name: item.fullName,
-            float: item.float,
-            price: item.price,
-            priceFormated: api.formatCurrency(item.price * dolar),
-            pattern: item.pattern,
-            quality: item.quality && item.quality.toUpperCase(),
-            image: item.steamImg,
-            inspect: `steam://rungame/730/76561202255233023/+csgo_econ_action_preview S${item.steamId}A${item.assetId}D${item.inspect}`,
-            availableAt: api.formatLockInterval(lockInterval),
+            name: item.asset.names.full,
+            float: item.asset.float,
+            price: item.pricing.computed,
+            priceFormated: api.formatCurrency(item.pricing.computed * dolar),
+            pattern: item.asset.pattern,
+            quality: item.asset.quality && item.asset.quality.toUpperCase(),
+            image: item.asset.images.steam,
+            inspect: item.links.inspectLink,
+            availableAt: null,
             stickers:
               item.stickers &&
               item.stickers.map(sticker => ({
                 name: sticker && sticker.name,
-                image: sticker && sticker.img,
+                image: sticker && sticker.image,
               })),
           }
         })
@@ -124,8 +125,8 @@ export const api = {
 
       const { data: dmarketResponse } = await dmarket.get(
         encodeURIComponent(
-          `?side=market&title=${params.name}&priceFrom=0&priceTo=0&gameId=a8db&types=dmarket&cursor=${dmarketStoragePageCursor}&platform=browser&isLoggedIn=false&orderDir=${params?.order}&orderBy=${params?.sort}&limit=${params?.limit}&currency=USD&treeFilters=exterior[]=factory new,exterior[]=minimal wear,exterior[]=field-tested,exterior[]=well-worn,exterior[]=battle-scarred`,
-        ),
+          `?side=market&title=${params.name}&priceFrom=0&priceTo=0&gameId=a8db&types=dmarket&cursor=${dmarketStoragePageCursor}&platform=browser&isLoggedIn=false&orderDir=${params?.order}&orderBy=${params?.sort}&limit=${params?.limit}&currency=USD&treeFilters=exterior[]=factory new,exterior[]=minimal wear,exterior[]=field-tested,exterior[]=well-worn,exterior[]=battle-scarred`
+        )
       )
       const { cursor, objects: dmarketItems } = dmarketResponse
 
@@ -182,9 +183,9 @@ export const api = {
     // dash skins
     if (params?.stores?.includes('dash')) {
       const { data: dashResponse } = await dash.get(
-        `?search=${params.name}&sort_by=${params.sort}&sort_dir=${params.order}&limit=${
-          params.limit
-        }&page=${Number(params.page) + 1}`,
+        `?search=${params.name}&sort_by=${params.sort}&sort_dir=${params.order}&limit=${params.limit}&page=${
+          Number(params.page) + 1
+        }`
       )
       const { results: dashItems } = dashResponse
 
@@ -203,12 +204,7 @@ export const api = {
               .join(',')
               .replace(',', '')
 
-        if (
-          item.wear_data &&
-          item.wear_data.paintindex === -1 &&
-          item.wear_data.floatvalue >= 0
-        )
-          skinQuality = '★'
+        if (item.wear_data && item.wear_data.paintindex === -1 && item.wear_data.floatvalue >= 0) skinQuality = '★'
 
         const lockInterval =
           new Date() < fns.parseISO(item.availableAt) &&
@@ -232,9 +228,9 @@ export const api = {
           pattern: item?.wear_data?.paintseed,
           quality: skinQuality,
           image: `https://steamcommunity-a.akamaihd.net/economy/image/${item.icon_url}`,
-          inspect: `steam://rungame/730/76561202255233023/+csgo_econ_action_preview S${
-            item.bot.steamID64
-          }A${item.assetid}D${item.actions[0]?.link.split('D').pop()}`,
+          inspect: `steam://rungame/730/76561202255233023/+csgo_econ_action_preview S${item.bot.steamID64}A${
+            item.assetid
+          }D${item.actions[0]?.link.split('D').pop()}`,
           availableAt: api.formatLockInterval(lockInterval, 1),
           stickers:
             item.stickers &&
@@ -257,9 +253,9 @@ export const api = {
 
       try {
         const { data: neshastoreResponse } = await neshastore.get(
-          `?query=${params.name}&orderBy[]=${neshaSortOrder}&limit=${
-            params.limit
-          }&tradeLocked=true&page=${Number(params.page) + 1}`,
+          `?query=${params.name}&orderBy[]=${neshaSortOrder}&limit=${params.limit}&tradeLocked=true&page=${
+            Number(params.page) + 1
+          }`
         )
         const { items: neshastoreItems } = neshastoreResponse
 

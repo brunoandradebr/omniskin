@@ -37,6 +37,7 @@ export const Container = styled.div`
   .list-separator.--is-end:before {
     content: 'no more content';
     background-color: #1d1e21;
+    width: max-content;
   }
 
   button {

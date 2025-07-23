@@ -1,42 +1,62 @@
 export interface ICsmoneySkin {
-  _3d: string
+  id: number
   appId: number
-  assetId: number
-  collection: string
-  float: string
-  fullName: string
-  hasHighDemand: boolean
-  hasScreenshot: boolean
-  id: string
-  img: string
-  inspect: string
-  isStatTrak: boolean
-  nameId: number
-  overpay: string
-  overprice: string
-  pattern: number
-  preview: string
-  price: number
-  quality: string
-  rank: string
-  rarity: string
-  screenshot: string
-  steamId: string
-  steamImg: string
+  asset: {
+    id: number
+    names: {
+      short: string
+      full: string
+      identifier: number
+    }
+    images: {
+      screenshot: string
+      steam: string
+      preview: string
+    }
+    isSouvenir: boolean
+    isStatTrak: boolean
+    quality: string
+    rarity: string
+    pattern: number
+    type: number
+    color: number
+    collection: {
+      name: string
+      image: string
+    }
+    float: number
+    inspect: string
+  }
   stickers: [
     {
-      img: string
+      collection: {
+        name: string
+      }
       name: string
-      overprice: number
-      position: number
-      price: number
+      image: string
+      wiki: string
       wear: number
-      wikiLink: string
-    },
+      pricing: {
+        default: number
+        rarity: number
+      }
+    }
   ]
-  tradeLock: number
-  type: number
-  userId: string
+  pricing: {
+    default: number
+    priceBeforeDiscount: number
+    extra: {
+      stickers: number
+    }
+    discount: number
+    computed: number
+    basePrice: number
+    priceCoefficient: number
+  }
+  links: {
+    '3d': string
+    inspectLink: string
+  }
 }
 
 export interface IDmarketSkin {
@@ -66,7 +86,7 @@ export interface IDmarketSkin {
       {
         name: string
         image: string
-      },
+      }
     ]
     tradable: boolean
     tradeLockDuration: number
@@ -136,7 +156,7 @@ export interface INeshastoreSkin {
       nameBr: string
       slot: number
       wear: string
-    },
+    }
   ]
   tags: []
   tradelockExpiration: string
@@ -165,7 +185,7 @@ export interface IDashSkin {
     {
       link: string
       name: string
-    },
+    }
   ]
   bot: {
     steamID64: string
@@ -179,7 +199,7 @@ export interface IDashSkin {
     {
       name: string
       image: string
-    },
+    }
   ]
   tradedAt: string
   type: string
@@ -230,7 +250,7 @@ export interface ISkin {
     {
       name: string
       image: string
-    },
+    }
   ]
   price: number
   priceFormated: string
