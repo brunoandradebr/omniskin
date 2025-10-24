@@ -4,10 +4,10 @@ Cs go skin markets grouped on one page.
 
 # Markets
 
-[<img src="https://raw.githubusercontent.com/brunoandradebr/omniskin/main/src/components/SkinSearch/StoreFilter/assets/nesha.png" width="100" />](https://neshastore.com/)
-[<img src="https://cdn-front-static.dmarket.com/prod/v1-209-3/assets/img/footer/img-dmarket-logo.svg" width="100" />](https://dmarket.com/pt/ingame-items/item-list/csgo-skins) <br>
-[<img src="https://cs.money/svg/new_logo.svg" width="100" />](https://cs.money/pt/csgo/store/)
-[<img src="https://dashskins.com.br/logo.png" width="100" />](https://dashskins.com.br/)
+[<img src="https://raw.githubusercontent.com/brunoandradebr/omniskin/main/src/components/SkinSearch/StoreFilter/assets/nesha.png" height="30" />](https://neshastore.com/)
+[<img src="https://raw.githubusercontent.com/brunoandradebr/omniskin/main/src/components/SkinSearch/StoreFilter/assets/dmarket.ico" height="30" />](https://dmarket.com/pt/ingame-items/item-list/csgo-skins)
+[<img src="https://raw.githubusercontent.com/brunoandradebr/omniskin/main/src/components/SkinSearch/StoreFilter/assets/csmoney.ico" height="30" />](https://cs.money/pt/csgo/store/)
+[<img src="https://raw.githubusercontent.com/brunoandradebr/omniskin/main/src/components/SkinSearch/StoreFilter/assets/dash.png" height="30" />](https://dashskins.com.br/)
 
 # Preview
 
