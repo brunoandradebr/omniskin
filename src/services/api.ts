@@ -24,16 +24,11 @@ export const api = {
 
   init: async () => {
     try {
-      const today = fns.format(new Date(), 'MM-dd-yyyy')
-
       const {
-        data: {
-          value: [cotation],
-        },
-      } = await quotation.get(
-        `CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao=%27${today}%27&$top=1&$format=json`
-      )
-      dolar = cotation.cotacaoCompra
+        data: { compra: cotation },
+      } = await quotation.get('dolares/oficial')
+
+      dolar = cotation * 0.0036 // api é da argentina, a cotação vem em peso argentino. converte para real
       api.initialized = true
 
       localStorage.setItem('dmarketPage', '')
@@ -84,7 +79,7 @@ export const api = {
         const { data: csmoneyResponse } = await csmoney.get(
           `?name=${params?.name}&limit=${params?.limit}&offset=${Number(params.page) * Number(params.limit)}&order=${
             params?.order
-          }&sort=${params?.sort}&hasStickers=true`
+          }&sort=${params?.sort}`
         )
         const { items: csmoneyItems } = csmoneyResponse
 
@@ -94,7 +89,6 @@ export const api = {
             store: {
               name: 'csmoney',
               url: 'https://cs.money',
-              icon: 'https://cs.money/img/favicon.ico',
               skinUrl: `https://cs.money/pt/market/buy/?search=${encodeURI(item.asset.names.full)}`,
             },
             name: item.asset.names.full,
@@ -145,7 +139,6 @@ export const api = {
           store: {
             name: 'dmarket',
             url: 'https://dmarket.com/',
-            icon: 'https://cdn-front-static.dmarket.com/prod/v1-209-2/assets/img/fav.ico',
             skinUrl: `https://dmarket.com/ingame-items/item-list/csgo-skins?userOfferId=${item.extra.linkId}`,
           },
           name: item.title,
@@ -218,7 +211,6 @@ export const api = {
           store: {
             name: 'dashskins',
             url: 'https://dashskins.com.br/',
-            icon: 'https://raichu-uploads.s3.amazonaws.com/logo_dash-skins_mxE7PD.png',
             skinUrl: `https://dashskins.com.br/item/1/${item._id}`,
           },
           name: item.market_hash_name,
@@ -272,7 +264,6 @@ export const api = {
             store: {
               name: 'neshastore',
               url: 'https://neshastore.com/',
-              icon: 'https://i.ibb.co/MM51ZSZ/Logo-Nesha-sem-fundo.png',
               skinUrl: `https://neshastore.com/csgo/${item.category}/${item.slugType}/${item.slug}?itemId=${item.id}`,
             },
             name: item.marketHashName,

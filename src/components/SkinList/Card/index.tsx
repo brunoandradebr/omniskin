@@ -4,11 +4,22 @@ import { ISkin } from 'services/types/api'
 import { useOmniskin } from 'stores/omniskin'
 
 import { TbEye as InspectIcon, TbLock as LockIcon } from 'react-icons/tb'
-import { RiComputerLine as ServerIcon } from 'react-icons/ri'
 
 import { FloatMeter } from './FloatMeter'
 
 import { Container } from './style'
+
+import csmoneyLogo from './../../SkinSearch/StoreFilter/assets/csmoney.ico'
+import dmarketLogo from './../../SkinSearch/StoreFilter/assets/dmarket.ico'
+import neshaLogo from './../../SkinSearch/StoreFilter/assets/nesha.png'
+import dashLogo from './../../SkinSearch/StoreFilter/assets/dash.png'
+
+const storeIcons = {
+  csmoney: csmoneyLogo,
+  dmarket: dmarketLogo,
+  neshastore: neshaLogo,
+  dashskins: dashLogo,
+}
 
 interface IProps {
   skin: ISkin
@@ -39,12 +50,7 @@ export const Card = ({ skin }: IProps) => {
                 {skin.availableAt}
               </div>
             )}
-            <a
-              className="skin-link"
-              title="open store link"
-              href={skin.store.skinUrl}
-              target="_blank"
-            >
+            <a className="skin-link" title="open store link" href={skin.store.skinUrl} target="_blank">
               <img className="skin-image" src={skin.image} />
               <img className="skin-imageShadow" src={skin.image} />
             </a>
@@ -52,7 +58,7 @@ export const Card = ({ skin }: IProps) => {
               title={skin.store.name}
               alt={skin.store.name}
               className="skin-store"
-              src={skin.store.icon}
+              src={storeIcons[skin.store.name as keyof typeof storeIcons]}
             />
 
             <div className="skin-stickers">
@@ -91,8 +97,7 @@ export const Card = ({ skin }: IProps) => {
             </div>
 
             <div className="skin-pattern">
-              <span>pattern</span>{' '}
-              {skin.pattern && skin.pattern >= 0 ? skin.pattern : ' --- '}
+              <span>pattern</span> {skin.pattern && skin.pattern >= 0 ? skin.pattern : ' --- '}
             </div>
 
             <div className="skin-price">

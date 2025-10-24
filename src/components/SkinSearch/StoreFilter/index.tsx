@@ -4,22 +4,27 @@ import { useOmniskin } from 'stores/omniskin'
 
 import { Container } from './style'
 
+import csmoneyLogo from './assets/csmoney.ico'
+import dmarketLogo from './assets/dmarket.ico'
+import neshaLogo from './assets/nesha.png'
+import dashLogo from './assets/dash.png'
+
 const storeList = [
   {
     name: 'csmoney',
-    image: 'https://cs.money/img/favicon.ico',
+    image: csmoneyLogo,
   },
   {
     name: 'dmarket',
-    image: 'https://cdn-front-static.dmarket.com/prod/v1-209-2/assets/img/fav.ico',
+    image: dmarketLogo,
   },
   {
     name: 'neshastore',
-    image: 'https://i.ibb.co/MM51ZSZ/Logo-Nesha-sem-fundo.png',
+    image: neshaLogo,
   },
   {
     name: 'dash',
-    image: 'https://raichu-uploads.s3.amazonaws.com/logo_dash-skins_mxE7PD.png',
+    image: dashLogo,
   },
 ]
 
@@ -43,9 +48,7 @@ export const StoreFilter = () => {
           <div
             key={store.name}
             title={store.name}
-            className={`store ${store.name} ${
-              params.stores?.includes(store.name as TStoreParam) && '--is-active'
-            }`}
+            className={`store ${store.name} ${params.stores?.includes(store.name as TStoreParam) && '--is-active'}`}
             onClick={handleOnChange.bind(this, store.name as TStoreParam)}
           >
             <img src={store.image} />
